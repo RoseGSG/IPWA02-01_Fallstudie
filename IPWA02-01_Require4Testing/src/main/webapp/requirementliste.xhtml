@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Requirement / Anforderungen Testen</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+</h:head>
+<h:body>
+	<h1>Requirement / Anforderungen Testen</h1>
+	<h:form>
+		<p:dataTable var="requirement" value="#{requirementListe.liste}" lazy="false">
+			<f:facet name="header">
+				<h2>Requirements Engineer</h2>
+				<h3>offene Anforderungen</h3>
+			</f:facet>
+			<p:column headerText="Titel">
+				<p:outputLabel value="#{requirement.title}" />
+			</p:column>
+			<p:column headerText="Beschreibung">
+				<p:outputLabel value="#{requirement.description}" />
+			</p:column>
+			<p:column headerText="Erstelldatum">
+				<p:datePicker value="#{requirement.createDate}" disabled="true" />
+			</p:column>
+		</p:dataTable>
+		<p:commandButton value="Ändern" icon="pi pi-pencil" action="#{requirementController.startEdit()}" />
+	</h:form>
+</h:body>
+</html>
