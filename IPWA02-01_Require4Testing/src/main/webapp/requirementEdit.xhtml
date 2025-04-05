@@ -4,36 +4,29 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Aufgabenliste</title>
+	<title>Requirement / Anforderungen Testen</title>
 	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-	<h1>TO-DO WebApp</h1>
+	<h1>Requirement / Anforderungen Testen</h1>
 	<h:form>
-		<p:dataTable var="aufgabe" value="#{aufgabenListe.liste}">
+		<p:dataTable var="requirement" value="#{requirementListe.liste}">
 			<f:facet name="header">
-				<h2>Aufgabenliste ändern</h2>
+				<h2>Requirements Engineer</h2>
+				<h3>offene Anforderungen bearbeiten/ erstellen</h3> <!--Hinzufügen, also "+" Button fehlt noch-->
 			</f:facet>
-			<p:column headerText="Text">
-				<p:inputText value="#{aufgabe.text}" />
+			<p:column headerText="Titel">
+				<p:inputText value="#{requirement.title}" />
 			</p:column>
-			<p:column headerText="Person">
-				<p:inputText value="#{aufgabe.person}" />
+			<p:column headerText="Beschreibung">
+				<p:inputText value="#{requirement.description}" />
 			</p:column>
-			<p:column headerText="Fällig am">
-				<p:datePicker id="faelligAm" value="#{aufgabe.faelligAm}"
-					pattern="dd.MM.yy" />
-			</p:column>
-			<p:column headerText="Erledigt">
-				<p:toggleSwitch value="#{aufgabe.erledigt}" />
-			</p:column>
-			<p:column headerText="Aufwand (h)">
-				<h:inputHidden id="aufwand" value="#{aufgabe.aufwand}" />
-				<p:outputLabel id="output" value="#{aufgabe.aufwand}" />
-				<p:slider for="aufwand" display="output" minValue="1" maxValue="40" />
+			<p:column headerText="Erstelldatum">
+				<p:datePicker id="createDate" value="#{requirement.createDate}"
+					pattern="dd.MM.yyyy" />
 			</p:column>
 		</p:dataTable>
-		<p:commandButton value="Speichern" icon="pi pi-check" action="#{controller.stopEdit()}" />
+		<p:commandButton value="Speichern" icon="pi pi-check" action="#{requirementController.stopEdit()}" />
 	</h:form>
 </h:body>
 </html>
