@@ -11,3 +11,13 @@ h1 {
     font-weight: 700;
     color: #222;
 }
+
+ .status-offen {
+     background-color: orange;
+ }
+ .status-in-bearbeitung {
+     background-color: yellow;
+ }
+ .status-geschlossen {
+     background-color: green;
+ }

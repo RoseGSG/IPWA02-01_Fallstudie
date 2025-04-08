@@ -19,7 +19,11 @@
 				<p:inputText value="#{testCase.description}" />
 			</p:column>
 			<p:column headerText="Status">
-				<p:inputText value="#{testCase.status}" />
+				<p:selectOneMenu value="#{testCase.status}">
+                    <f:selectItem itemLabel="Offen" itemValue="Offen" />
+                    <f:selectItem itemLabel="In Bearbeitung" itemValue="In Bearbeitung" />
+                    <f:selectItem itemLabel="Geschlossen" itemValue="Geschlossen" />
+                </p:selectOneMenu>
 			</p:column>
 		</p:dataTable>
 		<p:commandButton value="Speichern" icon="pi pi-check" action="#{testCaselisteController.stopEdit()}" />
