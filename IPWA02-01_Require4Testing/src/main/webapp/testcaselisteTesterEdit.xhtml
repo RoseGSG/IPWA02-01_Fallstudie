@@ -13,16 +13,16 @@
 		<p:dataTable var="testCase" value="#{testCaseliste.testCase}">
 			<f:facet name="header">
 				<h2>Tester</h2>
-				<h3>Übersicht der offenen TestCases</h3> <!--Hinzufügen, also "+" Button fehlt noch-->
+				<h3>Übersicht der offenen TestCases</h3>
 			</f:facet>
 			<p:column headerText="Beschreibung">
-				<p:inputText value="#{testCase.description}" />
+				<p:outputLabel value="#{testCase.description}" />
 			</p:column>
 			<p:column headerText="Status">
 				<p:selectOneMenu value="#{testCase.status}">
                     <f:selectItem itemLabel="Offen" itemValue="Offen" />
                     <f:selectItem itemLabel="In Bearbeitung" itemValue="In Bearbeitung" />
-                    <f:selectItem itemLabel="Geschlossen" itemValue="Geschlossen" />
+                    <f:selectItem itemLabel="Geschlossen" itemValue="Geschlossen"/>
                 </p:selectOneMenu>
 			</p:column>
 		</p:dataTable>
