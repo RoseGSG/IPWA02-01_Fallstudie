@@ -4,16 +4,16 @@ import java.io.Serializable;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
-@Named("controller")
+@Named("testRunlisteController")
 @ViewScoped
-public class AufgabenListeController
+public class TestRunlisteController
              implements Serializable
 {
     public String startEdit() {
-        return "editierbar";
+        return "TestRunEdit";
     }
     
     public String stopEdit() {
-        return "aufgabenliste";
+        return "testRunliste";
     }
 }

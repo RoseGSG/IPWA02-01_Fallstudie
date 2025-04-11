@@ -4,16 +4,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>Tester Übersicht</title>
+    <title>Testfallersteller Übersicht</title>
     <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-    <h1>Tester Übersicht</h1>
+    <h1>Testerfallersteller Übersicht</h1>
     <h:form>
         <p:dataTable var="testCase" value="#{testCaseliste.testCase}" lazy="false">
             <f:facet name="header">
-                <h2>Tester</h2>
-                <h3>Übersicht der offenen TestCases</h3>
+                <h2>Testfallersteller</h2>
+                <h3>offene TestCases</h3>
             </f:facet>
             <p:column headerText="Beschreibung">
 				<p:outputLabel value="#{testCase.description}" />
@@ -21,8 +21,11 @@
             <p:column headerText="Status">
                 <h:outputLabel value="#{testCase.status}" />
             </p:column>
+            <p:column headerText="zugeordnetes Requirement">
+                <h:outputLabel value="#{testCase.requirementID}" />
+            </p:column>
         </p:dataTable>
-        <p:commandButton value="Ändern" icon="pi pi-pencil" action="#{testCaselisteController.startEdit1()}" />
+        <p:commandButton value="Ändern" icon="pi pi-pencil" action="#{testCaselisteController.startEdit2()}" />
     </h:form>
 </h:body>
 </html>

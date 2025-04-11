@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Testlauf / Testfälle</title>
+	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+</h:head>
+<h:body>
+	<h1>Testlauf / Testfälle</h1>
+	<h:form>
+		<p:dataTable var="testRun" value="#{testRunliste.liste}">
+			<f:facet name="header">
+				<h2>Testmanager</h2>
+				<h3>offene Testläufe bearbeiten/ erstellen/ Testfall zuordnen</h3>
+			</f:facet>
+			<p:column headerText="Name">
+				<p:outputLabel value="#{testRun.name}" />
+			</p:column>
+			<p:column headerText="Beschreibung">
+				<p:outputLabel value="#{testRun.description}" />
+			</p:column>
+			<p:column headerText="Startdatum">
+				<p:datePicker value="#{testRun.startDate}" disabled="true" />
+			</p:column>
+			<p:column headerText="Enddatum">
+				<p:datePicker value="#{testRun.endDate}" disabled="true" />
+			</p:column>
+			<p:column headerText="zugeordneter Testfall">
+            	<p:outputLabel value="#{testCase.ID}" />
+            </p:column>
+		</p:dataTable>
+
+		<p:commandButton value="Ändern" icon="pi pi-pencil" action="#{testRunlisteController.startEdit()}"/>
+	</h:form>
+</h:body>
+</html>
