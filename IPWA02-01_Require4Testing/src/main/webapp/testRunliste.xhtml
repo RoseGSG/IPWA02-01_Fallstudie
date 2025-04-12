@@ -22,17 +22,16 @@
 				<p:outputLabel value="#{testRun.description}" />
 			</p:column>
 			<p:column headerText="Startdatum">
-				<p:datePicker value="#{testRun.startDate}" disabled="true" />
+				<p:datePicker id="startDate" value="#{testRun.startDate}" disabled="true"/>
 			</p:column>
 			<p:column headerText="Enddatum">
-				<p:datePicker value="#{testRun.endDate}" disabled="true" />
+				<p:datePicker id="endDate" value="#{testRun.endDate}" disabled="true" />
 			</p:column>
 			<p:column headerText="zugeordneter Testfall">
             	<p:outputLabel value="#{testCase.ID}" />
             </p:column>
 		</p:dataTable>
-
-		<p:commandButton value="Ändern" icon="pi pi-pencil" action="#{testRunlisteController.startEdit()}"/>
+		<p:commandButton value="Ändern" icon="pi pi-pencil" action="#{testRunlisteController.startEdit()}" />
 	</h:form>
 </h:body>
 </html>

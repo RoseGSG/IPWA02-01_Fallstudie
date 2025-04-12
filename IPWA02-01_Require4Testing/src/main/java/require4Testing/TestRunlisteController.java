@@ -10,7 +10,7 @@ public class TestRunlisteController
              implements Serializable
 {
     public String startEdit() {
-        return "TestRunEdit";
+        return "testRunEdit";
     }
     
     public String stopEdit() {
