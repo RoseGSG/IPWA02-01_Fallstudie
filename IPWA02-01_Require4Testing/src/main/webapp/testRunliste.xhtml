@@ -9,7 +9,7 @@
 </h:head>
 <h:body>
 	<h1>Testlauf / Testfälle</h1>
-	<h:form>
+	<h:form id="form1">
 		<p:dataTable var="testRun" value="#{testRunliste.liste}">
 			<f:facet name="header">
 				<h2>Testmanager</h2>
@@ -30,6 +30,20 @@
 			<p:column headerText="zugeordneter Testfall">
             	<p:outputLabel value="#{testCase.ID}" />
             </p:column>
+		</p:dataTable>
+	</h:form>
+	
+	<h:form id="form2">
+		<p:dataTable var="testCase" value="#{testCaseliste.testCase}">
+			<f:facet name="header">
+				<h3>Testfall zuordnen</h3> 
+			</f:facet>
+			<p:column headerText="Beschreibung">
+				<p:outputLabel value="#{testCase.description}" />
+			</p:column>
+			<p:column headerText="zugehöriger Tester">
+				<p:outputLabel value="#{testCase.testerID}" />
+			</p:column>
 		</p:dataTable>
 		<p:commandButton value="Ändern" icon="pi pi-pencil" action="#{testRunlisteController.startEdit()}" />
 	</h:form>

@@ -9,11 +9,11 @@
 </h:head>
 <h:body>
 	<h1>Testlauf / Testfälle</h1>
-	<h:form>
+	<h:form id="form1">
 		<p:dataTable var="testRun" value="#{testRunliste.liste}">
 			<f:facet name="header">
 				<h2>Testmanager</h2>
-				<h3>offene Testläufe bearbeiten/ erstellen/ Testfall zuordnen</h3>
+				<h3>offene Testläufe bearbeiten/ erstellen</h3> <!--Hinzufügen, also "+" Button fehlt noch-->
 			</f:facet>
 			<p:column headerText="Name">
 				<p:inputText value="#{testRun.name}" />
@@ -29,9 +29,20 @@
 				<p:datePicker id="endDate" value="#{testRun.endDate}"
 					pattern="dd.MM.yyyy" />
 			</p:column>
-			<p:column headerText="zugeordneter Testfall">
-            	<p:inputText value="#{testCase.ID}" />
-            </p:column>
+		</p:dataTable>
+	</h:form>
+	
+	<h:form id="form2">
+		<p:dataTable var="testCase" value="#{testCaseliste.testCase}">
+			<f:facet name="header">
+				<h3>Testfall zuordnen</h3> 
+			</f:facet>
+			<p:column headerText="Beschreibung">
+				<p:outputLabel value="#{testCase.description}" />
+			</p:column>
+			<p:column headerText="zugehöriger Tester">
+				<p:inputText value="#{testCase.testerID}" />
+			</p:column>
 		</p:dataTable>
 		<p:commandButton value="Speichern" icon="pi pi-check" action="#{testRunlisteController.stopEdit()}" />
 	</h:form>
