@@ -4,7 +4,7 @@ import java.io.Serializable;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
-@Named("testCaselisteController")
+@Named
 @ViewScoped
 public class TestCaselisteController
              implements Serializable

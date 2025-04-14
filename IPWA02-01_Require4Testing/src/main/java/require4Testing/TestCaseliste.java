@@ -6,7 +6,7 @@ import java.util.List;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 
-@Named("testCaseliste")
+@Named
 @ApplicationScoped
 public class TestCaseliste implements Serializable {
     private static TestCaseliste instance = new TestCaseliste();

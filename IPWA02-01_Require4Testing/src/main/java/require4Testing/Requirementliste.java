@@ -9,7 +9,7 @@ import java.util.List;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 
-@Named("requirementListe")
+@Named
 @ApplicationScoped
 public class Requirementliste implements Serializable {
 	private static Requirementliste instance = new Requirementliste();

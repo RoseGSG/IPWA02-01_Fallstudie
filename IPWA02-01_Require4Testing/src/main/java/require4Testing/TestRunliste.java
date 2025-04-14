@@ -9,7 +9,7 @@ import java.util.List;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 
-@Named("testRunliste")
+@Named
 @ApplicationScoped
 public class TestRunliste implements Serializable {
 	private static TestRunliste instance = new TestRunliste();
