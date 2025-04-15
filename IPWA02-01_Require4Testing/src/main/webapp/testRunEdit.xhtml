@@ -16,20 +16,23 @@
 				<h3>offene Testläufe bearbeiten/ erstellen</h3> <!--Hinzufügen, also "+" Button fehlt noch-->
 			</f:facet>
 			<p:column headerText="Name">
-				<p:inputText value="#{testRun.name}" />
+				<p:inputText value="#{testRun.name}" required="true" label="Testlaufname"/>
 			</p:column>
 			<p:column headerText="Beschreibung">
 				<p:inputText value="#{testRun.description}" />
 			</p:column>
 			<p:column headerText="Startdatum">
 				<p:datePicker id="startDate" value="#{testRun.startDate}"
-					pattern="dd.MM.yyyy" />
+					pattern="dd.MM.yyyy" required="true" label="Startdatum"/>
 			</p:column>
 			<p:column headerText="Enddatum">
 				<p:datePicker id="endDate" value="#{testRun.endDate}"
 					pattern="dd.MM.yyyy" />
 			</p:column>
 		</p:dataTable>
+		<p:messages id="messages">
+			<p:autoUpdate />
+		</p:messages>
 	</h:form>
 	
 	<h:form id="form2">
@@ -44,6 +47,9 @@
 				<p:inputText value="#{testCase.testerID}" />
 			</p:column>
 		</p:dataTable>
+		<p:messages id="messages">
+			<p:autoUpdate />
+		</p:messages>
 		<p:commandButton value="Speichern" icon="pi pi-check" action="#{testRunlisteController.stopEdit()}" />
 	</h:form>
 </h:body>
