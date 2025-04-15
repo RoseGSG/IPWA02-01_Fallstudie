@@ -16,7 +16,7 @@
 				<h3>offene Anforderungen bearbeiten/ erstellen</h3> <!--Hinzufügen, also "+" Button fehlt noch-->
 			</f:facet>
 			<p:column headerText="Titel">
-				<p:inputText value="#{requirement.title}" />
+				<p:inputText value="#{requirement.title}" required="true" label="Requirement Titel"/>
 			</p:column>
 			<p:column headerText="Beschreibung">
 				<p:inputText value="#{requirement.description}" />
@@ -26,6 +26,9 @@
 					pattern="dd.MM.yyyy" />
 			</p:column>
 		</p:dataTable>
+		<p:messages id="messages">
+			<p:autoUpdate />
+		</p:messages>
 		<p:commandButton value="Speichern" icon="pi pi-check" action="#{requirementController.stopEdit()}" />
 	</h:form>
 </h:body>
