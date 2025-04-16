@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
+<p:commandButton value="Logout" icon="pi pi-angle-double-left" action="#{testRunlisteController.logOut()}" 
+		styleClass="ui-button-raised ui-button-secondary"/>
 	<h1>Testlauf / Testfälle</h1>
 	<h:form id="form1">
 		<p:dataTable var="testRun" value="#{testRunliste.liste}">

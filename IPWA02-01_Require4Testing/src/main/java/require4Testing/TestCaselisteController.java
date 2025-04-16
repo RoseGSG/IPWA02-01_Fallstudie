@@ -24,4 +24,8 @@ public class TestCaselisteController
     public String stopEdit2() {
         return "testcaselisteCreator";
     }
+    
+    public String logOut() {
+    	return "login";
+    }
 }

@@ -16,4 +16,8 @@ public class RequirementlisteController
     public String stopEdit() {
         return "requirementliste";
     }
+    
+    public String logOut() {
+    	return "login";
+    }
 }

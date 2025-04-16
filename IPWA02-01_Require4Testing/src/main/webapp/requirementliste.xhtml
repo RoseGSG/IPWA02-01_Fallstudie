@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
+<p:commandButton value="Logout" icon="pi pi-angle-double-left" action="#{requirementController.logOut()}" 
+		styleClass="ui-button-raised ui-button-secondary"/>
 	<h1>Requirement / Anforderungen Testen</h1>
 	<h:form>
 		<p:dataTable var="requirement" value="#{requirementliste.liste}" lazy="false">

@@ -16,4 +16,8 @@ public class TestRunlisteController
     public String stopEdit() {
         return "testRunliste";
     }
+    
+    public String logOut() {
+    	return "login";
+    }
 }
