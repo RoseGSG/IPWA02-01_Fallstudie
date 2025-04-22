@@ -1,9 +1,13 @@
 package require4Testing;
 
 import java.io.Serializable;
+import jakarta.persistence.*;
 
+@Entity
 public class TestCase implements Serializable {
-    private Long id;
+	@Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long ID;
     private Long requirementID;
     private Long testRunID;
     private Long testerID;
@@ -11,6 +15,8 @@ public class TestCase implements Serializable {
     private String description;
     private String status;
 
+    public TestCase() {}
+    
     public TestCase(long requirementID, long testRunID, long testerID, long creatorID, String description, String status) {
     	this.requirementID = requirementID;
     	this.testRunID = testRunID;
@@ -21,8 +27,8 @@ public class TestCase implements Serializable {
     }
     
     // Getter & Setter
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getID() { return ID; }
+    public void setID(Long ID) { this.ID = ID; }
 
     public Long getRequirementID() { return requirementID; }
     public void setRequirementID(Long requirementID) { this.requirementID = requirementID; }

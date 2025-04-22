@@ -1,14 +1,20 @@
 package require4Testing;
 
 import java.util.Date;
+import jakarta.persistence.*;
 
+@Entity
 public class TestRun {
-    private Long id;
+	@Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long ID;
     private String name;
     private String description;
     private Date startDate;
     private Date endDate;
 
+    public TestRun() {}
+    
     public TestRun(String name, String description, Date startDate, Date endDate) {
     	this.name = name;
     	this.description = description;
@@ -17,8 +23,8 @@ public class TestRun {
     }
     
     // Getter & Setter
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getID() { return ID; }
+    public void setID(Long ID) { this.ID = ID; }
 
     public String getName() { return name; }
     public void setName (String name) { this.name = name; }
