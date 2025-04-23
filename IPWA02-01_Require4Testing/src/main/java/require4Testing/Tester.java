@@ -3,7 +3,7 @@ package require4Testing;
 import jakarta.persistence.*;
 
 @Entity
-public class Creator {
+public class Tester {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long ID;
@@ -29,19 +29,19 @@ public class Creator {
 	public void setPasswort(String passwort) {
 		this.passwort = passwort;
 	}
-	public Creator(String login, String passwort) {
+	public Tester(String login, String passwort) {
 		super();
 		this.login = login;
 		this.passwort = passwort;
 	}
-	public Creator() {
+	public Tester() {
 		super();
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof Creator) {
-			Creator b = (Creator)obj;
+		if(obj instanceof Tester) {
+			Tester b = (Tester)obj;
 			if(b.getLogin().equals(this.login) && b.getPasswort().equals(this.passwort)) {
 				return true;
 			}
