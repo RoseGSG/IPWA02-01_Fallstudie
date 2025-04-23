@@ -1,19 +1,23 @@
 package require4Testing;
 
 import java.util.Date;
+import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
 public class Requirement {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long ID;
+    private Long ID;
     private String title;
     private String description;
     private Date createDate;
 
+    @OneToMany(mappedBy = "requirementID")
+    private List<TestCase> testCases;
+
     public Requirement() {}
-    
+
     public Requirement(String title, String description, Date createDate) {
         this.title = title;
         this.description = description;
@@ -32,4 +36,7 @@ public class Requirement {
 
     public Date getCreateDate() { return createDate; }
     public void setCreateDate(Date createDate) { this.createDate = createDate; }
+
+    public List<TestCase> getTestCases() { return testCases; }
+    public void setTestCases(List<TestCase> testCases) { this.testCases = testCases; }
 }

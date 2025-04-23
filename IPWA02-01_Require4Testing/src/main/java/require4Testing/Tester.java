@@ -11,6 +11,12 @@ public class Tester {
 	String login;
 	String passwort;
 	
+	public Long getID() {
+		return ID;
+	}
+	public void setID(Long ID) {
+		this.ID = ID;
+	}
 	public String getName() {
 		return name;
 	}
