@@ -8,15 +8,13 @@ public class Requirement {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long ID;
-    private long engineerID;
     private String title;
     private String description;
     private Date createDate;
 
     public Requirement() {}
     
-    public Requirement(long engineerID, String title, String description, Date createDate) {
-        this.engineerID = engineerID;
+    public Requirement(String title, String description, Date createDate) {
         this.title = title;
         this.description = description;
         this.createDate = createDate;
@@ -25,9 +23,6 @@ public class Requirement {
     // Getter & Setter
     public Long getID() { return ID; }
     public void setID(Long ID) { this.ID = ID; }
-
-    public long getEngineerID() { return engineerID; }
-    public void setEngineerID(long engineerID) { this.engineerID = engineerID; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }

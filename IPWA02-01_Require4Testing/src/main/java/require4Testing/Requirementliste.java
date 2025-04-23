@@ -19,9 +19,9 @@ public class Requirementliste implements Serializable {
 
 	public Requirementliste() {
 		try {
-			liste.add(new Requirement(1L, "A", "Anforderung 1", dateFormat.parse("03.09.2024")));
-			liste.add(new Requirement(2L, "B", "Anforderung 2", dateFormat.parse("10.09.2024")));
-			liste.add(new Requirement(3L, "C", "Anforderung 3", dateFormat.parse("17.09.2024")));
+			liste.add(new Requirement("A", "Anforderung 1", dateFormat.parse("03.09.2024")));
+			liste.add(new Requirement("B", "Anforderung 2", dateFormat.parse("10.09.2024")));
+			liste.add(new Requirement("C", "Anforderung 3", dateFormat.parse("17.09.2024")));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
