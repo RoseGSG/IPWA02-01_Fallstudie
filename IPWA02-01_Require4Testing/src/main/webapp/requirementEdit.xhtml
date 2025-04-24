@@ -25,10 +25,16 @@
 				<p:datePicker id="createDate" value="#{requirement.createDate}"
 					pattern="dd.MM.yyyy" required="true" label="Erstelldatum"/>
 			</p:column>
+			<p:column headerText="Löschen">
+				<p:commandButton value="Löschen" icon="pi pi-trash" 
+						action="#{requirementlisteController.deleteRequirement(requirement.ID)}" 
+						update=":form:messages :form:requirementTable" />
+			</p:column>			
 		</p:dataTable>
 		<p:messages id="messages">
 			<p:autoUpdate />
 		</p:messages>
+		<p:commandButton value="+" icon="pi pi-plus" action="#{requirementlisteController.createRequirement(new require4Testing.Requirement())}" update=":form:messages :form:requirementTable" />
 		<p:commandButton value="Speichern" icon="pi pi-check" action="#{requirementController.stopEdit()}" />
 	</h:form>
 </h:body>
