@@ -3,7 +3,7 @@ package require4Testing;
 import java.io.Serializable;
 
 public class TestCase implements Serializable {
-    private Long id;
+    private Long ID;
     private Long requirementID;
     private Long testRunID;
     private Long testerID;
@@ -21,8 +21,8 @@ public class TestCase implements Serializable {
     }
     
     // Getter & Setter
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getID() { return ID; }
+    public void setID(Long ID) { this.ID = ID; }
 
     public Long getRequirementID() { return requirementID; }
     public void setRequirementID(Long requirementID) { this.requirementID = requirementID; }

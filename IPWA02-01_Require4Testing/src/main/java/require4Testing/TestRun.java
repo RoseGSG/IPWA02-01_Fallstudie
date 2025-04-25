@@ -3,7 +3,7 @@ package require4Testing;
 import java.util.Date;
 
 public class TestRun {
-    private Long id;
+    private Long ID;
     private String name;
     private String description;
     private Date startDate;
@@ -17,8 +17,8 @@ public class TestRun {
     }
     
     // Getter & Setter
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getID() { return ID; }
+    public void setID(Long ID) { this.ID = ID; }
 
     public String getName() { return name; }
     public void setName (String name) { this.name = name; }

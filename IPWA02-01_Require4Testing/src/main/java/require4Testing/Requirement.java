@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Requirement {
-    private Long id;
+    private Long ID;
     private long engineerID;
     private String title;
     private String description;
@@ -18,8 +18,8 @@ public class Requirement {
     }
 
     // Getter & Setter
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getID() { return ID; }
+    public void setID(Long ID) { this.ID = ID; }
 
     public long getEngineerID() { return engineerID; }
     public void setEngineerID(long engineerID) { this.engineerID = engineerID; }
