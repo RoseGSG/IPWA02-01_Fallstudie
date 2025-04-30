@@ -28,6 +28,16 @@
             <p:column headerText="Erstelldatum">
                 <p:datePicker id="createDate" value="#{requirement.createDate}" pattern="dd.MM.yyyy" required="true" label="Erstelldatum" />
             </p:column>
+            
+            <p:column headerText="Aktionen">
+    			<p:commandButton icon="pi pi-trash"
+                 action="#{requirementController.loeschen(requirement)}"
+                 update=":editForm :editForm:messages"
+                 process="@this"
+                 immediate="true"
+                 title="Löschen" />
+			</p:column>
+            
         </p:dataTable>
 
         <!-- Neue Zeile für neuen Requirement -->
@@ -59,6 +69,11 @@
                          action="#{requirementController.stopEdit()}"
                          immediate="true"
                          />
+                         
+        <p:commandButton value="Speichern + Schließen" icon="pi pi-save"
+                		 action="#{requirementController.speichernUndSchließen}"
+                		 update="editForm :editForm:messages" />
+        
     </h:form>
 </h:body>
 </html>

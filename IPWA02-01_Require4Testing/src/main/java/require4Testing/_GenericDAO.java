@@ -24,6 +24,16 @@ public class _GenericDAO<T> {
         em.persist(entity);
         em.getTransaction().commit();
     }
+    
+    public void delete(T entity) {
+        T managed = em.merge(entity);
+        em.remove(managed);
+    }
+
+    public void update(T entity) {
+        em.merge(entity);
+    }
+
 
     public List<T> findAll() {
         if (entityClass == null) {

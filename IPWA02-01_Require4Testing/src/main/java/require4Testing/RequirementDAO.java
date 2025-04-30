@@ -9,5 +9,6 @@ public class RequirementDAO extends _GenericDAO<Requirement> {
 
     public RequirementDAO() {
         setEntityClass(Requirement.class);
-    }
+    }  
 }
+

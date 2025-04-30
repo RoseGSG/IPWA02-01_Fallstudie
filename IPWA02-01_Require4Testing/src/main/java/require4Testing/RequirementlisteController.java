@@ -38,6 +38,38 @@ public class RequirementlisteController implements Serializable {
             e.printStackTrace();
         }
     }
+    
+    public String speichernUndSchließen() {
+        try {
+            // Alle bestehenden Anforderungen aktualisieren (z. B. weil inline editiert wurde)
+            for (Requirement r : requirementliste.getListe()) {
+                dao.update(r); // neue Methode unten ergänzen
+            }
+
+            // Neuen Requirement speichern (falls was eingegeben wurde)
+            if (neuerRequirement.getTitle() != null && !neuerRequirement.getTitle().isBlank()) {
+                dao.save(neuerRequirement);
+            }
+
+            requirementliste.refreshListe();
+            neuerRequirement = new Requirement();
+
+            return "requirementliste?faces-redirect=true";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    public void loeschen(Requirement req) {
+        try {
+            dao.delete(req);
+            requirementliste.refreshListe();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public Requirement getNeuerRequirement() {
         return neuerRequirement;
