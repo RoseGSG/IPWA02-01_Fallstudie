@@ -2,13 +2,20 @@ package require4Testing;
 
 import java.util.Date;
 import java.util.List;
+import jakarta.persistence.*;
 
+@Entity
 public class Requirement {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
     private String title;
     private String description;
     private Date createDate;
 
+    public Requirement() {
+    	}
+    
     public Requirement(String title, String description, Date createDate) {
         this.title = title;
         this.description = description;

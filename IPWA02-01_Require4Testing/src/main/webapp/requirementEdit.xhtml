@@ -1,35 +1,64 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Requirement / Anforderungen Testen</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+    <title>Requirement / Anforderungen Testen</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-	<h1>Requirement / Anforderungen Testen</h1>
-	<h:form>
-		<p:dataTable var="requirement" value="#{requirementliste.liste}">
-			<f:facet name="header">
-				<h2>Requirements Engineer</h2>
-				<h3>offene Anforderungen bearbeiten/ erstellen</h3> <!--Hinzufügen, also "+" Button fehlt noch-->
-			</f:facet>
-			<p:column headerText="Titel">
-				<p:inputText value="#{requirement.title}" required="true" label="Requirement Titel"/>
-			</p:column>
-			<p:column headerText="Beschreibung">
-				<p:inputText value="#{requirement.description}" />
-			</p:column>
-			<p:column headerText="Erstelldatum">
-				<p:datePicker id="createDate" value="#{requirement.createDate}"
-					pattern="dd.MM.yyyy" required="true" label="Erstelldatum"/>
-			</p:column>
-		</p:dataTable>
-		<p:messages id="messages">
-			<p:autoUpdate />
-		</p:messages>
-		<p:commandButton value="Speichern" icon="pi pi-check" action="#{requirementController.stopEdit()}" />
-	</h:form>
+    <h1>Requirement / Anforderungen Testen</h1>
+
+    <h:form id="editForm">
+        <p:dataTable var="requirement" value="#{requirementliste.liste}">
+            <f:facet name="header">
+                <h2>Requirements Engineer</h2>
+                <h3>Offene Anforderungen bearbeiten / erstellen</h3>
+            </f:facet>
+
+            <p:column headerText="Titel">
+                <p:inputText value="#{requirement.title}" required="true" label="Requirement Titel"/>
+            </p:column>
+
+            <p:column headerText="Beschreibung">
+                <p:inputTextarea value="#{requirement.description}" autoResize="false" />
+            </p:column>
+
+            <p:column headerText="Erstelldatum">
+                <p:datePicker id="createDate" value="#{requirement.createDate}" pattern="dd.MM.yyyy" required="true" label="Erstelldatum" />
+            </p:column>
+        </p:dataTable>
+
+        <!-- Neue Zeile für neuen Requirement -->
+        <h3>Neuen Requirement hinzufügen</h3>
+        <p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
+
+            <p:outputLabel for="titel" value="Titel" />
+            <p:inputText id="titel" value="#{requirementController.neuerRequirement.title}" required="true" label="Neuer Titel" />
+            <p:message for="titel" />
+
+            <p:outputLabel for="beschreibung" value="Beschreibung" />
+            <p:inputTextarea id="beschreibung" value="#{requirementController.neuerRequirement.description}" autoResize="false" />
+            <p:message for="beschreibung" />
+
+            <p:outputLabel value="Erstelldatum" />
+            <p:datePicker id="createDateNew" value="#{requirementController.neuerRequirement.createDate}" pattern="dd.MM.yyyy" required="true" label="Neues Erstelldatum"/>
+            <p:message for="createDateNew" />
+
+        </p:panelGrid>
+
+        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+
+        <p:commandButton value="Speichern" icon="pi pi-check"
+                         actionListener="#{requirementController.speichern}"
+                         update="editForm messages"
+                         />
+
+        <p:commandButton value="Abbrechen" icon="pi pi-times"
+                         action="#{requirementController.stopEdit()}"
+                         immediate="true"
+                         />
+    </h:form>
 </h:body>
 </html>

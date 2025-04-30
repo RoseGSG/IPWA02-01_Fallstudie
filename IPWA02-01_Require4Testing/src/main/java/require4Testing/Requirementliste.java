@@ -1,37 +1,31 @@
 package require4Testing;
 
-import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.io.Serializable;
+import java.util.List;
 
 @Named
 @ApplicationScoped
 public class Requirementliste implements Serializable {
-	private static Requirementliste instance = new Requirementliste();
-	private List<Requirement> liste = new ArrayList<Requirement>();
-	
-	SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
-	public Requirementliste() {
-		try {
-			liste.add(new Requirement("A", "Anforderung 1", dateFormat.parse("03.09.2024")));
-			liste.add(new Requirement("B", "Anforderung 2", dateFormat.parse("10.09.2024")));
-			liste.add(new Requirement("C", "Anforderung 3", dateFormat.parse("17.09.2024")));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	}
+    @Inject
+    private RequirementDAO dao;
 
-	public static Requirementliste getInstance() {
-		return instance;
-	}
+    private List<Requirement> liste;
 
-	public List<Requirement> getListe() {
-		return liste;
-	}
+    public Requirementliste() {
+    }
+
+    public List<Requirement> getListe() {
+        if (liste == null) {
+            liste = dao.findAll();
+        }
+        return liste;
+    }
+
+    public void refreshListe() {
+        liste = dao.findAll();
+    }
 }
