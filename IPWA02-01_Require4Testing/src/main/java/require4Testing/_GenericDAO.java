@@ -31,9 +31,10 @@ public class _GenericDAO<T> {
     }
 
     public void update(T entity) {
+        em.getTransaction().begin();
         em.merge(entity);
+        em.getTransaction().commit();
     }
-
 
     public List<T> findAll() {
         if (entityClass == null) {

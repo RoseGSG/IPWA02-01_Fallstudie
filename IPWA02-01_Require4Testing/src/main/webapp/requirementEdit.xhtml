@@ -11,69 +11,90 @@
     <h1>Requirement / Anforderungen Testen</h1>
 
     <h:form id="editForm">
-        <p:dataTable var="requirement" value="#{requirementliste.liste}">
+
+        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+
+        <p:dataTable id="requirementTable" var="requirement" value="#{requirementliste.liste}" 
+                     editable="true" editMode="cell" styleClass="editable-table">
             <f:facet name="header">
                 <h2>Requirements Engineer</h2>
-                <h3>Offene Anforderungen bearbeiten / erstellen</h3>
+                <h3>Offene Anforderungen bearbeiten</h3>
             </f:facet>
 
             <p:column headerText="Titel">
-                <p:inputText value="#{requirement.title}" required="true" label="Requirement Titel"/>
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{requirement.title}" /></f:facet>
+                    <f:facet name="input"><p:inputText value="#{requirement.title}" /></f:facet>
+                </p:cellEditor>
             </p:column>
 
             <p:column headerText="Beschreibung">
-                <p:inputTextarea value="#{requirement.description}" autoResize="false" />
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{requirement.description}" /></f:facet>
+                    <f:facet name="input"><p:inputTextarea value="#{requirement.description}" autoResize="false" /></f:facet>
+                </p:cellEditor>
             </p:column>
 
             <p:column headerText="Erstelldatum">
-                <p:datePicker id="createDate" value="#{requirement.createDate}" pattern="dd.MM.yyyy" required="true" label="Erstelldatum" />
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{requirement.createDate}">
+                        <f:convertDateTime pattern="dd.MM.yyyy" />
+                    </h:outputText></f:facet>
+                    <f:facet name="input"><p:datePicker value="#{requirement.createDate}" pattern="dd.MM.yyyy" /></f:facet>
+                </p:cellEditor>
             </p:column>
-            
+
             <p:column headerText="Aktionen">
-    			<p:commandButton icon="pi pi-trash"
-                 action="#{requirementController.loeschen(requirement)}"
-                 update=":editForm :editForm:messages"
-                 process="@this"
-                 immediate="true"
-                 title="Löschen" />
-			</p:column>
-            
+                <p:commandButton icon="pi pi-save"
+                                 title="Speichern"
+                                 action="#{requirementController.speichernEinzeln(requirement)}"
+                                 process="@this"
+                                 update=":editForm:requirementTable :editForm:messages" />
+
+                <p:spacer width="10"/>
+                <p:commandButton icon="pi pi-trash"
+				                 title="Löschen"
+				                 action="#{requirementController.loeschen(requirement)}"
+				                 update=":editForm :editForm:messages"
+				                 process="@this" />
+
+            </p:column>
         </p:dataTable>
 
-        <!-- Neue Zeile für neuen Requirement -->
         <h3>Neuen Requirement hinzufügen</h3>
+
         <p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
 
             <p:outputLabel for="titel" value="Titel" />
-            <p:inputText id="titel" value="#{requirementController.neuerRequirement.title}" required="true" label="Neuer Titel" />
+            <p:inputText id="titel"
+                         value="#{requirementController.neuerRequirement.title}"
+                         required="true" label="Titel" />
             <p:message for="titel" />
 
             <p:outputLabel for="beschreibung" value="Beschreibung" />
-            <p:inputTextarea id="beschreibung" value="#{requirementController.neuerRequirement.description}" autoResize="false" />
+            <p:inputTextarea id="beschreibung"
+                             value="#{requirementController.neuerRequirement.description}"
+                             autoResize="false" />
             <p:message for="beschreibung" />
 
-            <p:outputLabel value="Erstelldatum" />
-            <p:datePicker id="createDateNew" value="#{requirementController.neuerRequirement.createDate}" pattern="dd.MM.yyyy" required="true" label="Neues Erstelldatum"/>
+            <p:outputLabel for="createDateNew" value="Erstelldatum" />
+            <p:datePicker id="createDateNew"
+                          value="#{requirementController.neuerRequirement.createDate}"
+                          required="true" label="Erstelldatum"
+                          pattern="dd.MM.yyyy" />
             <p:message for="createDateNew" />
 
         </p:panelGrid>
 
-        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+        <p:commandButton value="Neuen Datensatz speichern" icon="pi pi-check"
+                         action="#{requirementController.speichernNeuen}"
+                         update=":editForm :editForm:messages"
+                         process="titel beschreibung createDateNew" />
 
-        <p:commandButton value="Speichern" icon="pi pi-check"
-                         actionListener="#{requirementController.speichern}"
-                         update="editForm messages"
-                         />
-
-        <p:commandButton value="Abbrechen" icon="pi pi-times"
+        <p:commandButton value="Schließen" icon="pi pi-times"
                          action="#{requirementController.stopEdit()}"
-                         immediate="true"
-                         />
-                         
-        <p:commandButton value="Speichern + Schließen" icon="pi pi-save"
-                		 action="#{requirementController.speichernUndSchließen}"
-                		 update="editForm :editForm:messages" />
-        
+                         immediate="true" />
+
     </h:form>
 </h:body>
 </html>

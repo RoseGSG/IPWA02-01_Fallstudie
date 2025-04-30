@@ -1,13 +1,13 @@
 package require4Testing;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
 @Named
-@ApplicationScoped
+@RequestScoped
 public class Requirementliste implements Serializable {
 
     @Inject
@@ -19,10 +19,7 @@ public class Requirementliste implements Serializable {
     }
 
     public List<Requirement> getListe() {
-        if (liste == null) {
-            liste = dao.findAll();
-        }
-        return liste;
+            return dao.findAll();
     }
 
     public void refreshListe() {

@@ -1,12 +1,12 @@
 package require4Testing;
 
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
 
 @Named("requirementController")
-@RequestScoped
+@ViewScoped
 public class RequirementlisteController implements Serializable {
 
     @Inject
@@ -18,48 +18,45 @@ public class RequirementlisteController implements Serializable {
     private Requirement neuerRequirement = new Requirement();
 
     public String startEdit() {
-        return "requirementEdit?faces-redirect=true";
+    	return "requirementEdit?faces-redirect=true";
     }
-
+    
     public String stopEdit() {
         return "requirementliste?faces-redirect=true";
     }
 
-    public String logOut() {
-        return "login?faces-redirect=true";
+    // Speichern eines existierenden Requirements
+    public void speichernEinzeln(Requirement r) {
+        try {
+            dao.update(r);
+            requirementliste.refreshListe();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Speichere: " + r.getTitle());
     }
 
-    public void speichern() {
+    // Speichern des neuen Requirements
+    public void speichernNeuen() {
         try {
-            dao.save(neuerRequirement);
-            requirementliste.refreshListe();
-            neuerRequirement = new Requirement();
+            if (isNeuerRequirementValid()) {
+                dao.save(neuerRequirement); // Speichern des neuen Requirements
+                requirementliste.refreshListe(); // Liste nach dem Speichern aktualisieren
+                neuerRequirement = new Requirement(); // Zurücksetzen des Formulars
+            } else {
+                System.out.println("Validierung fehlgeschlagen!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    public String speichernUndSchließen() {
-        try {
-            // Alle bestehenden Anforderungen aktualisieren (z. B. weil inline editiert wurde)
-            for (Requirement r : requirementliste.getListe()) {
-                dao.update(r); // neue Methode unten ergänzen
-            }
 
-            // Neuen Requirement speichern (falls was eingegeben wurde)
-            if (neuerRequirement.getTitle() != null && !neuerRequirement.getTitle().isBlank()) {
-                dao.save(neuerRequirement);
-            }
-
-            requirementliste.refreshListe();
-            neuerRequirement = new Requirement();
-
-            return "requirementliste?faces-redirect=true";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    private boolean isNeuerRequirementValid() {
+        return neuerRequirement.getTitle() != null && !neuerRequirement.getTitle().isBlank()
+               && neuerRequirement.getDescription() != null && !neuerRequirement.getDescription().isBlank()
+               && neuerRequirement.getCreateDate() != null;
     }
+
 
 
     public void loeschen(Requirement req) {
