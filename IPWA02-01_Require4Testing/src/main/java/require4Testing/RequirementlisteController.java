@@ -38,11 +38,13 @@ public class RequirementlisteController implements Serializable {
 
     // Speichern des neuen Requirements
     public void speichernNeuen() {
+        System.out.println("speichernNeuen() wird aufgerufen!");
         try {
             if (isNeuerRequirementValid()) {
-                dao.save(neuerRequirement); // Speichern des neuen Requirements
-                requirementliste.refreshListe(); // Liste nach dem Speichern aktualisieren
-                neuerRequirement = new Requirement(); // Zurücksetzen des Formulars
+                dao.save(neuerRequirement);
+                requirementliste.refreshListe();
+                neuerRequirement = new Requirement(); // Zurücksetzen
+                System.out.println("Neues Requirement gespeichert.");
             } else {
                 System.out.println("Validierung fehlgeschlagen!");
             }
@@ -51,9 +53,10 @@ public class RequirementlisteController implements Serializable {
         }
     }
 
+
     private boolean isNeuerRequirementValid() {
-        return neuerRequirement.getTitle() != null && !neuerRequirement.getTitle().isBlank()
-               && neuerRequirement.getDescription() != null && !neuerRequirement.getDescription().isBlank()
+        return neuerRequirement.getTitle() != null 
+        	   && !neuerRequirement.getTitle().isBlank()
                && neuerRequirement.getCreateDate() != null;
     }
 

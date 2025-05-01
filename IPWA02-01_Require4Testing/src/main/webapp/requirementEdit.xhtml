@@ -40,7 +40,7 @@
                     <f:facet name="output"><h:outputText value="#{requirement.createDate}">
                         <f:convertDateTime pattern="dd.MM.yyyy" />
                     </h:outputText></f:facet>
-                    <f:facet name="input"><p:datePicker value="#{requirement.createDate}" pattern="dd.MM.yyyy" /></f:facet>
+                    <f:facet name="input"><p:datePicker value="#{requirement.createDate}" pattern="dd.MM.yyyy" timeZone="UTC"/></f:facet>
                 </p:cellEditor>
             </p:column>
 
@@ -81,7 +81,8 @@
             <p:datePicker id="createDateNew"
                           value="#{requirementController.neuerRequirement.createDate}"
                           required="true" label="Erstelldatum"
-                          pattern="dd.MM.yyyy" />
+                          pattern="dd.MM.yyyy" 
+                          timeZone="UTC"/>
             <p:message for="createDateNew" />
 
         </p:panelGrid>
@@ -89,11 +90,13 @@
         <p:commandButton value="Neuen Datensatz speichern" icon="pi pi-check"
                          action="#{requirementController.speichernNeuen}"
                          update=":editForm :editForm:messages"
-                         process="titel beschreibung createDateNew" />
-
+                         process="@form" />
+		<p:spacer width="10"/>
+		
         <p:commandButton value="Schließen" icon="pi pi-times"
                          action="#{requirementController.stopEdit()}"
-                         immediate="true" />
+                         immediate="true" 
+                         style="float: right;"/>
 
     </h:form>
 </h:body>

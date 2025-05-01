@@ -24,10 +24,21 @@ public class _GenericDAO<T> {
         em.persist(entity);
         em.getTransaction().commit();
     }
-    
+
     public void delete(T entity) {
-        T managed = em.merge(entity);
-        em.remove(managed);
+        em.getTransaction().begin();
+
+        // Hole die ID des Objekts
+        Object id = getPrimaryKey(entity);
+
+        // Finde das Entity anhand der ID neu im Persistence Context
+        T managed = em.find(entityClass, id);
+
+        if (managed != null) {
+            em.remove(managed);
+        }
+
+        em.getTransaction().commit();
     }
 
     public void update(T entity) {
@@ -42,5 +53,9 @@ public class _GenericDAO<T> {
         }
         return em.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e", entityClass)
                  .getResultList();
+    }
+
+    private Object getPrimaryKey(T entity) {
+        return em.getEntityManagerFactory().getPersistenceUnitUtil().getIdentifier(entity);
     }
 }
