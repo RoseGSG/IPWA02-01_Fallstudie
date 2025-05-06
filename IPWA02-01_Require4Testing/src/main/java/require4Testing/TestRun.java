@@ -1,14 +1,21 @@
 package require4Testing;
 
 import java.util.Date;
+import jakarta.persistence.*;
 
+@Entity
 public class TestRun {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
     private String name;
     private String description;
     private Date startDate;
     private Date endDate;
 
+    public TestRun() {
+    	}
+    
     public TestRun(String name, String description, Date startDate, Date endDate) {
     	this.name = name;
     	this.description = description;

@@ -78,4 +78,9 @@ public class RequirementlisteController implements Serializable {
     public void setNeuerRequirement(Requirement neuerRequirement) {
         this.neuerRequirement = neuerRequirement;
     }
+    
+    public String logOut() {
+    	return "login?faces-redirect=true";
+    }
+    
 }
