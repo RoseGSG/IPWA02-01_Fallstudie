@@ -1,6 +1,9 @@
 package require4Testing;
 
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +15,9 @@ public class TestRun {
     private String description;
     private Date startDate;
     private Date endDate;
+    
+    @OneToMany(mappedBy = "testRun", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TestCase> testCases = new ArrayList<>();
 
     public TestRun() {
     	}
@@ -38,5 +44,8 @@ public class TestRun {
 
     public Date getEndDate() { return endDate; }
     public void setEndDate(Date endDate) { this.endDate = endDate; }
+
+    public List<TestCase> getTestCases() {return testCases;}
+    public void setTestCases(List<TestCase> testCases) {this.testCases = testCases;}
 
 }

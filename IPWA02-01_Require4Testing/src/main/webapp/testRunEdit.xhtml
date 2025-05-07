@@ -1,109 +1,128 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Testlauf / Testfälle</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+    <title>Testlauf / Testfälle</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-	<h1>Testlauf / Testfälle</h1>
-	<h:form id="editForm">
-	
-		<p:messages id="messages" showDetail="true" autoUpdate="true" />
-		
-		<p:dataTable id="testrunTable" var="testRun" value="#{testRunliste.liste}">
-			<f:facet name="header">
-				<h2>Testmanager</h2>
-				<h3>offene Testläufe bearbeiten/ erstellen</h3> <!--Hinzufügen, also "+" Button fehlt noch-->
-			</f:facet>
-			
-			<p:column headerText="Name">
-				<p:cellEditor>
+    <h1>Testlauf / Testfälle</h1>
+
+    <h:form id="editForm">
+        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+
+        <p:dataTable id="testrunTable"
+                     var="testRun"
+                     value="#{testRunliste.liste}"
+                     editable="true"
+                     editMode="cell"
+                     styleClass="editable-table">
+
+            <f:facet name="header">
+                <h2>Testmanager</h2>
+                <h3>Offene Testläufe bearbeiten</h3>
+            </f:facet>
+
+            <p:column headerText="Name">
+                <p:cellEditor>
                     <f:facet name="output"><h:outputText value="#{testRun.name}" /></f:facet>
                     <f:facet name="input"><p:inputText value="#{testRun.name}" /></f:facet>
                 </p:cellEditor>
-			</p:column>
-			
-			<p:column headerText="Beschreibung">
-				<p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Beschreibung">
+                <p:cellEditor>
                     <f:facet name="output"><h:outputText value="#{testRun.description}" /></f:facet>
-                    <f:facet name="input"><p:inputText value="#{testRun.description}" /></f:facet>
+                    <f:facet name="input"><p:inputTextarea value="#{testRun.description}" autoResize="false" /></f:facet>
                 </p:cellEditor>
-			</p:column>
-			
-			<p:column headerText="Startdatum">
-				<p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{testRun.startDate}">
-                        <f:convertDateTime pattern="dd.MM.yyyy" />
-                    </h:outputText></f:facet>
-                    <f:facet name="input"><p:datePicker value="#{testRun.startDate}" pattern="dd.MM.yyyy" timeZone="UTC"/></f:facet>
+            </p:column>
+
+            <p:column headerText="Startdatum">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{testRun.startDate}">
+                            <f:convertDateTime pattern="dd.MM.yyyy" />
+                        </h:outputText>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:datePicker value="#{testRun.startDate}" pattern="dd.MM.yyyy" timeZone="UTC" />
+                    </f:facet>
                 </p:cellEditor>
-			</p:column>
-			
-			<p:column headerText="Enddatum">
-				<p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{testRun.endDate}">
-                        <f:convertDateTime pattern="dd.MM.yyyy" />
-                    </h:outputText></f:facet>
-                    <f:facet name="input"><p:datePicker value="#{testRun.endDate}" pattern="dd.MM.yyyy" timeZone="UTC"/></f:facet>
+            </p:column>
+
+            <p:column headerText="Enddatum">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{testRun.endDate}">
+                            <f:convertDateTime pattern="dd.MM.yyyy" />
+                        </h:outputText>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:datePicker value="#{testRun.endDate}" pattern="dd.MM.yyyy" timeZone="UTC" />
+                    </f:facet>
                 </p:cellEditor>
-			</p:column>
-			
-			<p:column headerText="Aktionen">
+            </p:column>
+
+            <p:column headerText="Aktionen">
                 <p:commandButton icon="pi pi-save"
                                  title="Speichern"
                                  action="#{testRunlisteController.speichernEinzeln(testRun)}"
                                  process="@this"
                                  update=":editForm:testrunTable :editForm:messages" />
 
-                <p:spacer width="10"/>
+                <p:spacer width="10" />
+
                 <p:commandButton icon="pi pi-trash"
-				                 title="Löschen"
-				                 action="#{testRunlisteController.loeschen(testRun)}"
-				                 update=":editForm :editForm:messages"
-				                 process="@this" />
-
+                                 title="Löschen"
+                                 action="#{testRunlisteController.loeschen(testRun)}"
+                                 update=":editForm :editForm:messages"
+                                 process="@this" />
             </p:column>
-		</p:dataTable>
+        </p:dataTable>
 
-		<h3>Neuen TestRun hinzufügen</h3>
+        <h3>Neuen TestRun hinzufügen</h3>
 
         <p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
-
             <p:outputLabel for="name" value="Name" />
-            <p:inputText id="name"
-                         value="#{testRunlisteController.neuerTestRun.name}"
-                         required="true" label="Name" />
+            <p:inputText id="name" value="#{testRunlisteController.neuerTestRun.name}" required="true" label="Name" />
             <p:message for="name" />
 
             <p:outputLabel for="beschreibung" value="Beschreibung" />
-            <p:inputTextarea id="beschreibung"
-                             value="#{testRunlisteController.neuerTestRun.description}"
-                             autoResize="false" />
+            <p:inputTextarea id="beschreibung" value="#{testRunlisteController.neuerTestRun.description}" autoResize="false" />
             <p:message for="beschreibung" />
 
             <p:outputLabel for="startDateNew" value="Startdatum" />
             <p:datePicker id="startDateNew"
                           value="#{testRunlisteController.neuerTestRun.startDate}"
-                          required="true" label="Startdatum"
-                          pattern="dd.MM.yyyy" 
-                          timeZone="UTC"/>
+                          required="true"
+                          label="Startdatum"
+                          pattern="dd.MM.yyyy"
+                          timeZone="UTC" />
             <p:message for="startDateNew" />
 
+            <p:outputLabel for="endDateNew" value="Enddatum" />
+            <p:datePicker id="endDateNew"
+                          value="#{testRunlisteController.neuerTestRun.endDate}"
+                          label="Enddatum"
+                          pattern="dd.MM.yyyy"
+                          timeZone="UTC" />
+            <p:message for="endDateNew" />
         </p:panelGrid>
 
-        <p:commandButton value="Neuen Datensatz speichern" icon="pi pi-check"
+        <p:commandButton value="Neuen Datensatz speichern"
+                         icon="pi pi-check"
                          action="#{testRunlisteController.speichernNeuen}"
                          update=":editForm :editForm:messages"
                          process="@form" />
-		<p:spacer width="10"/>
-		
-        <p:commandButton value="Schließen" icon="pi pi-times"
+        <p:spacer width="10" />
+
+        <p:commandButton value="Schließen"
+                         icon="pi pi-times"
                          action="#{testRunlisteController.stopEdit()}"
-                         immediate="true" 
-                         style="float: right;"/>
+                         immediate="true"
+                         style="float: right;" />
 		
 <!-- 	</h:form>
 	

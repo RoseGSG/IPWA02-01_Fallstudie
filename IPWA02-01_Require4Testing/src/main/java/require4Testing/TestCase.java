@@ -1,40 +1,53 @@
 package require4Testing;
 
+import jakarta.persistence.*;
 import java.io.Serializable;
 
+@Entity
 public class TestCase implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
-    private Long requirementID;
-    private Long testRunID;
-    private Long testerID;
-    private Long creatorID;
+
+    @ManyToOne
+    @JoinColumn(name = "requirement_id")
+    private Requirement requirement;
+
+    @ManyToOne
+    @JoinColumn(name = "test_run_id")
+    private TestRun testRun;
+
+    @ManyToOne
+    @JoinColumn(name = "tester_id")
+    private Tester tester;
+
     private String description;
     private String status;
 
-    public TestCase(long requirementID, long testRunID, long testerID, long creatorID, String description, String status) {
-    	this.requirementID = requirementID;
-    	this.testRunID = testRunID;
-    	this.testerID = testerID;
-    	this.creatorID = creatorID;
-    	this.description = description;
-    	this.status = status;
+    public TestCase() {
     }
-    
+
+    public TestCase(Requirement requirement, TestRun testRun, Tester tester, String description, String status) {
+        this.requirement = requirement;
+        this.testRun = testRun;
+        this.tester = tester;
+        this.description = description;
+        this.status = status;
+    }
+
     // Getter & Setter
     public Long getID() { return ID; }
     public void setID(Long ID) { this.ID = ID; }
 
-    public Long getRequirementID() { return requirementID; }
-    public void setRequirementID(Long requirementID) { this.requirementID = requirementID; }
+    public Requirement getRequirement() { return requirement; }
+    public void setRequirement(Requirement requirement) { this.requirement = requirement; }
 
-    public Long getTestRunID() { return testRunID; }
-    public void setTestRunID(Long testRunID) { this.testRunID = testRunID; }
+    public TestRun getTestRun() { return testRun; }
+    public void setTestRun(TestRun testRun) { this.testRun = testRun; }
 
-    public Long getTesterID() { return testerID; }
-    public void setTesterID(Long testerID) { this.testerID = testerID; }
-
-    public Long getCreatorID() { return creatorID; }
-    public void setCreatorID(Long creatorID) { this.creatorID = creatorID; }
+    public Tester getTester() { return tester; }
+    public void setTester(Tester tester) { this.tester = tester; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }

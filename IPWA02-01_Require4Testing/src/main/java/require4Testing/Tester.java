@@ -1,5 +1,8 @@
 package require4Testing;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +15,9 @@ public class Tester {
     private String name;
     private String login;
     private String password;
+    
+    @OneToMany(mappedBy = "tester", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TestCase> testCases = new ArrayList<>();
 
     // Standardkonstruktor
     public Tester() {
@@ -25,37 +31,18 @@ public class Tester {
     }
 
     // Getter & Setter
-    public Long getId() {
-        return id;
-    }
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
+    
+    public String getLogin() {return login;}
+    public void setLogin(String login) {this.login = login;}
+    
+    public String getPassword() {return password;}
+    public void setPassword(String password) {this.password = password;}
+    
     @Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Tester) {
@@ -67,4 +54,7 @@ public class Tester {
 		return false;
 	}
     
+    public List<TestCase> getTestCases() {return testCases;}
+    public void setTestCases(List<TestCase> testCases) {this.testCases = testCases;}
+
 }

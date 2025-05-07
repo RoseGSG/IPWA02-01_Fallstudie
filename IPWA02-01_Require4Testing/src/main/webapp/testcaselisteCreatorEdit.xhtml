@@ -1,34 +1,92 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Testfallersteller Übersicht</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+    <title>TestCase Bearbeitung</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
 </h:head>
 <h:body>
-	<h1>Testfallersteller Übersicht</h1>
-	<h:form>
-		<p:dataTable var="testCase" value="#{testCaseliste.testCase}">
-			<f:facet name="header">
-				<h2>Testfallersteller</h2>
-				<h3>offene TestCases</h3>
-			</f:facet>
-			<p:column headerText="Beschreibung">
-				<p:inputText value="#{testCase.description}" required="true" label="Testfallbeschreibung"/>
-			</p:column>
-			<p:column headerText="Status">
-                <h:outputLabel value="#{testCase.status}" />
-            </p:column>
-            <p:column headerText="zugeordnetes Reqirement">
-            	<p:inputText value="#{testCase.requirementID}" />
-            </p:column>
-		</p:dataTable>
-		<p:messages id="messages">
-			<p:autoUpdate />
-		</p:messages>
-		<p:commandButton value="Speichern" icon="pi pi-check" action="#{testCaselisteController.stopEdit2()}" />
-	</h:form>
+<h1>TestCases bearbeiten</h1>
+<h:form id="editForm">
+    <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+
+    <!-- Bestehende TestCases -->
+    <p:dataTable id="testCaseTable" var="testCase" value="#{testCaseliste.testCase}" editable="true" editMode="cell">
+        <f:facet name="header">
+            <h2>Vorhandene TestCases</h2>
+        </f:facet>
+
+        <p:column headerText="Beschreibung">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{testCase.description}"/></f:facet>
+                <f:facet name="input"><p:inputText value="#{testCase.description}"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+
+        <p:column headerText="Status">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{testCase.status}"/></f:facet>
+                <f:facet name="input"><p:inputText value="#{testCase.status}"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+
+        <p:column headerText="Requirement">
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{testCase.requirement.title}"/>
+                </f:facet>
+                <f:facet name="input">
+                    <p:selectOneMenu value="#{testCase.requirement}" converter="_GenericFacesConverter">
+    					<f:attribute name="entityType" value="#{testCaselisteController.requirementType}" />
+    					<f:selectItems value="#{testCaselisteController.alleRequirements}" var="req"
+                   						itemLabel="#{req.title}" itemValue="#{req}" />
+					</p:selectOneMenu>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+
+        <p:column headerText="Aktionen">
+            <p:commandButton icon="pi pi-save" action="#{testCaselisteController.speichernEinzeln(testCase)}"
+                             update="@form" process="@this"/>
+            <p:spacer width="10"/>
+                <p:commandButton icon="pi pi-trash" 
+                     action="#{testCaselisteController.deleteTestCase(testCase)}"
+                     update="testCaseTable" 
+                     process="@this" />
+        </p:column>
+    </p:dataTable>
+
+    <!-- Neuen TestCase anlegen -->
+    <h3>Neuen TestCase anlegen</h3>
+		<p:panelGrid columns="2">
+		
+		    <p:outputLabel for="desc" value="Beschreibung"/>
+		    <p:inputText id="desc" value="#{testCaselisteController.neuerTestCase.description}"/>
+		
+		    <p:outputLabel for="status" value="Status"/>
+		    <p:inputText id="status" value="#{testCaselisteController.neuerTestCase.status}"/>
+		
+		    <p:outputLabel for="req" value="Requirement"/>
+		    <p:selectOneMenu id="req" value="#{testCaselisteController.neuerTestCase.requirement}" 
+		    				 converter="_GenericFacesConverter"
+		    				 entityType="#{testCaselisteController.requirementType}">
+		        <f:selectItems value="#{testCaselisteController.alleRequirements}" var="req"
+		                       itemLabel="#{req.title}" itemValue="#{req}" />
+		    </p:selectOneMenu>
+		
+		</p:panelGrid>
+
+
+    <p:commandButton value="Neuen TestCase speichern" icon="pi pi-plus"
+                     action="#{testCaselisteController.speichernNeuenTestCase}" 
+                     update="@form"/>
+
+    <p:commandButton value="Zurück" icon="pi pi-times"
+                     action="#{testCaselisteController.stopEdit2()}" immediate="true"
+                     style="float:right;"/>
+
+</h:form>
 </h:body>
 </html>

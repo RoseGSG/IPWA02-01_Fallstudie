@@ -1,49 +1,39 @@
 package require4Testing;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-@Named
-@ApplicationScoped
-public class TestCaseliste implements Serializable {
-    private static TestCaseliste instance = new TestCaseliste();
-	private List<TestCase> testCase;
+import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
-    public TestCaseliste() {
-        testCase = new ArrayList<>();
-        testCase.add(new TestCase(1L, 1L, 1L, 1L, "Testfall 1", "Offen"));
-        testCase.add(new TestCase(2L, 2L, 2L, 2L, "Testfall 2", "Geschlossen"));
-        testCase.add(new TestCase(3L, 3L, 3L, 3L, "Testfall 3", "In Bearbeitung"));
-    }
+@Named
+@RequestScoped
+public class TestCaseliste implements Serializable {
+
+    @Inject
+    private TestCaseDAO testCaseDAO;
 
     public List<TestCase> getTestCase() {
-        return testCase;
+        return testCaseDAO.findAll();
     }
 
-    public List<TestCase> getTestCaseForTester(Long testerID) {
-        List<TestCase> result = new ArrayList<>();
-        for (TestCase testCase : testCase) {
-            if (testCase.getTesterID().equals(testerID)) {
-                result.add(testCase);
-            }
-        }
-        return result;
+    public List<TestCase> getTestCaseForTester(Long testerId) {
+        return testCaseDAO.findAll().stream()
+                .filter(tc -> tc.getTester() != null && testerId.equals(tc.getTester().getId()))
+                .collect(Collectors.toList());
     }
 
-    public List<TestCase> getTestCaseForCreator(Long creatorID) {
-        List<TestCase> result = new ArrayList<>();
-        for (TestCase testCase : testCase) {
-            if (testCase.getCreatorID().equals(creatorID)) {
-                result.add(testCase);
-            }
-        }
-        return result;
+    public List<TestCase> getTestCaseForRequirement(Long requirementId) {
+        return testCaseDAO.findAll().stream()
+                .filter(tc -> tc.getRequirement() != null && requirementId.equals(tc.getRequirement().getID()))
+                .collect(Collectors.toList());
     }
 
-    public List<TestCase> getTestCaseForManager() {
-        return testCase; // Alle Testfälle zurückgeben
+    public List<TestCase> getTestCaseForTestRun(Long testRunId) {
+        return testCaseDAO.findAll().stream()
+                .filter(tc -> tc.getTestRun() != null && testRunId.equals(tc.getTestRun().getID()))
+                .collect(Collectors.toList());
     }
 }

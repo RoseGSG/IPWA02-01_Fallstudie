@@ -7,7 +7,8 @@ import java.util.List;
 @Dependent // wichtig: Dependent statt ApplicationScoped für generische Klassen
 public class _GenericDAO<T> {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("require4TestingPersistenceUnit");
+    private static final EntityManagerFactory emf =
+        Persistence.createEntityManagerFactory("require4TestingPersistenceUnit");
 
     protected EntityManager em = emf.createEntityManager();
 
@@ -15,8 +16,9 @@ public class _GenericDAO<T> {
 
     public _GenericDAO() {}
 
-    public void setEntityClass(Class<T> entityClass) {
-        this.entityClass = entityClass;
+    @SuppressWarnings("unchecked")
+    public void setEntityClass(Class<?> entityClass) {
+        this.entityClass = (Class<T>) entityClass;
     }
 
     public void save(T entity) {
@@ -27,17 +29,11 @@ public class _GenericDAO<T> {
 
     public void delete(T entity) {
         em.getTransaction().begin();
-
-        // Hole die ID des Objekts
         Object id = getPrimaryKey(entity);
-
-        // Finde das Entity anhand der ID neu im Persistence Context
         T managed = em.find(entityClass, id);
-
         if (managed != null) {
             em.remove(managed);
         }
-
         em.getTransaction().commit();
     }
 
@@ -55,7 +51,14 @@ public class _GenericDAO<T> {
                  .getResultList();
     }
 
-    private Object getPrimaryKey(T entity) {
+    public T findById(Long id) {
+        if (entityClass == null || id == null) {
+            return null;
+        }
+        return em.find(entityClass, id);
+    }
+
+    public Object getPrimaryKey(T entity) {
         return em.getEntityManagerFactory().getPersistenceUnitUtil().getIdentifier(entity);
     }
 }
