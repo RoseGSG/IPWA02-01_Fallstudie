@@ -26,10 +26,7 @@
         </p:column>
 
         <p:column headerText="Status">
-            <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{testCase.status}"/></f:facet>
-                <f:facet name="input"><p:inputText value="#{testCase.status}"/></f:facet>
-            </p:cellEditor>
+            <h:outputText value="#{testCase.status}"/>
         </p:column>
 
         <p:column headerText="Requirement">
@@ -65,9 +62,9 @@
 		    <p:outputLabel for="desc" value="Beschreibung"/>
 		    <p:inputText id="desc" value="#{testCaselisteController.neuerTestCase.description}"/>
 		
-		    <p:outputLabel for="status" value="Status"/>
-		    <p:inputText id="status" value="#{testCaselisteController.neuerTestCase.status}"/>
-		
+			<p:outputLabel value="Status"/>
+				<h:outputText value="offen"/>
+			
 		    <p:outputLabel for="req" value="Requirement"/>
 		    <p:selectOneMenu id="req" value="#{testCaselisteController.neuerTestCase.requirement}" 
 		    				 converter="_GenericFacesConverter"

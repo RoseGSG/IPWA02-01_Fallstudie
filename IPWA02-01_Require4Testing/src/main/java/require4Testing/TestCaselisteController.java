@@ -27,6 +27,7 @@ public class TestCaselisteController implements Serializable {
     public void init() {
         testCases = testCaseDAO.findAll();
         alleRequirements = requirementDAO.findAll();
+        neuerTestCase.setStatus("offen");
     }
 
     // Getter für View
@@ -56,8 +57,9 @@ public class TestCaselisteController implements Serializable {
         testCaseDAO.save(neuerTestCase);
         testCases = testCaseDAO.findAll(); // Liste aktualisieren
         neuerTestCase = new TestCase();    // leeren für nächste Eingabe
+        neuerTestCase.setStatus("offen"); 
     }
-
+    
     public void deleteTestCase(TestCase testCase) {
         testCaseDAO.delete(testCase);  // Löschen aus der Datenbank
         testCases = testCaseDAO.findAll();  // Liste neu laden, um die Anzeige zu aktualisieren
