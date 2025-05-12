@@ -64,6 +64,20 @@
                     </f:facet>
                 </p:cellEditor>
             </p:column>
+            
+            <p:column headerText="Testfall">
+			    <p:cellEditor>
+			        <f:facet name="output">
+			            <h:outputText value="#{testRun.testCase.description}" />
+			        </f:facet>
+			        <f:facet name="input">
+			            <p:selectOneMenu value="#{testRun.testCase}" converter="_GenericFacesConverter">
+			                <f:selectItems value="#{testRunlisteController.alleTestCases}" var="tc"
+			                               itemLabel="#{tc.description}" itemValue="#{tc}" />
+			            </p:selectOneMenu>
+			        </f:facet>
+			    </p:cellEditor>
+			</p:column>
 
             <p:column headerText="Aktionen">
                 <p:commandButton icon="pi pi-save"
@@ -123,24 +137,34 @@
                          action="#{testRunlisteController.stopEdit()}"
                          immediate="true"
                          style="float: right;" />
-		
-<!-- 	</h:form>
+                         
+    </h:form>
 	
 	<h:form id="form2">
-		<p:dataTable var="testCase" value="#{testCaseliste.testCase}">
+		<p:dataTable var="testCase" value="#{testCaseliste.testCases}">
 			<f:facet name="header">
 				<h3>Testfall zuordnen</h3> 
 			</f:facet>
 			<p:column headerText="Beschreibung">
 				<p:outputLabel value="#{testCase.description}" />
 			</p:column>
-			<p:column headerText="zugehöriger Tester">
-				<p:inputText value="#{testCase.testerID}" />
+			<p:column headerText="Tester">
+			    <p:cellEditor>
+			        <f:facet name="output">
+			            <h:outputText value="#{testCase.tester.name}" />
+			        </f:facet>
+			        <f:facet name="input">
+			            <p:selectOneMenu value="#{testCase.tester}" converter="_GenericFacesConverter">
+			                <f:selectItems value="#{testRunlisteController.alleTester}" var="t"
+			                               itemLabel="#{t.name}" itemValue="#{t}" />
+			            </p:selectOneMenu>
+			        </f:facet>
+			    </p:cellEditor>
 			</p:column>
 		</p:dataTable>
 		<p:messages id="messages">
 			<p:autoUpdate />
 		</p:messages>
--->	</h:form>
+	</h:form>
 </h:body>
 </html>

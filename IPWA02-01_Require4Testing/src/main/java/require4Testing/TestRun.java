@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 public class TestRun {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ID;
+    private Long id;
     private String name;
     private String description;
     private Date startDate;
@@ -18,6 +18,10 @@ public class TestRun {
     
     @OneToMany(mappedBy = "testRun", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TestCase> testCases = new ArrayList<>();
+    
+    @ManyToOne
+    @JoinColumn(name = "main_test_case_id")
+    private TestCase testCase;
 
     public TestRun() {
     	}
@@ -29,9 +33,10 @@ public class TestRun {
     	this.endDate = endDate;
     }
     
+    
     // Getter & Setter
-    public Long getID() { return ID; }
-    public void setID(Long ID) { this.ID = ID; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName (String name) { this.name = name; }
@@ -47,5 +52,8 @@ public class TestRun {
 
     public List<TestCase> getTestCases() {return testCases;}
     public void setTestCases(List<TestCase> testCases) {this.testCases = testCases;}
+    
+    public TestCase getTestCase() {return testCase;}
+    public void setTestCase(TestCase testCase) {this.testCase = testCase;}
 
 }

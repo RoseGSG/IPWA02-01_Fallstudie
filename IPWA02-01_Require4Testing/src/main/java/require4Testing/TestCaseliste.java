@@ -27,13 +27,13 @@ public class TestCaseliste implements Serializable {
 
     public List<TestCase> getTestCaseForRequirement(Long requirementId) {
         return testCaseDAO.findAll().stream()
-                .filter(tc -> tc.getRequirement() != null && requirementId.equals(tc.getRequirement().getID()))
+                .filter(tc -> tc.getRequirement() != null && requirementId.equals(tc.getRequirement().getId()))
                 .collect(Collectors.toList());
     }
 
     public List<TestCase> getTestCaseForTestRun(Long testRunId) {
         return testCaseDAO.findAll().stream()
-                .filter(tc -> tc.getTestRun() != null && testRunId.equals(tc.getTestRun().getID()))
+                .filter(tc -> tc.getTestRun() != null && testRunId.equals(tc.getTestRun().getId()))
                 .collect(Collectors.toList());
     }
 }

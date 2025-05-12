@@ -8,7 +8,7 @@ public class TestCase implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ID;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "requirement_id")
@@ -37,8 +37,8 @@ public class TestCase implements Serializable {
     }
 
     // Getter & Setter
-    public Long getID() { return ID; }
-    public void setID(Long ID) { this.ID = ID; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public Requirement getRequirement() { return requirement; }
     public void setRequirement(Requirement requirement) { this.requirement = requirement; }

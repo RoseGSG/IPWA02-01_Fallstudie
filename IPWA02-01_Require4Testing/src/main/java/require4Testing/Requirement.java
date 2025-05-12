@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 public class Requirement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ID;
+    private Long id;
     private String title;
     private String description;
     private Date createDate;
@@ -27,8 +27,8 @@ public class Requirement {
     }
 
     // Getter & Setter
-    public Long getID() { return ID; }
-    public void setID(Long ID) { this.ID = ID; }
+    public Long getId() { return id; }
+    public void setId(Long ID) { this.id = id; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
@@ -42,24 +42,24 @@ public class Requirement {
     public List<TestCase> getTestCases() { return testCases; }
     public void setTestCases(List<TestCase> testCases) { this.testCases = testCases; }
 
-    // Equals und HashCode basierend auf der ID
+    // Equals und HashCode basierend auf der id
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Requirement that = (Requirement) o;
-        return ID != null && ID.equals(that.ID);
+        return id != null && id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return 31 + (ID != null ? ID.hashCode() : 0);
+        return 31 + (id != null ? id.hashCode() : 0);
     }
 
     // Optionale ToString-Methode
     @Override
     public String toString() {
-        return "Requirement[ID=" + ID + ", title=" + title + "]";
+        return "Requirement[id=" + id + ", title=" + title + "]";
     }
 }

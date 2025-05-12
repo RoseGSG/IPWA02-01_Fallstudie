@@ -29,24 +29,24 @@
 			<p:column headerText="Enddatum">
 				<p:datePicker id="endDate" value="#{testRun.endDate}" disabled="true" />
 			</p:column>
-			<!-- <p:column headerText="zugeordneter Testfall">
-            	<p:outputLabel value="#{testCase.ID}" />
-            </p:column>-->
+			<p:column headerText="zugeordneter Testfall">
+            	<p:outputLabel value="#{testCase.testRun.name}" />
+            </p:column>
 		</p:dataTable>
-<!-- 	</h:form>
+ 	</h:form>
 	
  <h:form id="form2">
 		<p:dataTable var="testCase" value="#{testCaseliste.testCase}">
 			<f:facet name="header">
-				<h3>Testfall zuordnen</h3> 
+				<h3>Testfall zu Tester zuordnen</h3> 
 			</f:facet>
 			<p:column headerText="Beschreibung">
 				<p:outputLabel value="#{testCase.description}" />
 			</p:column>
 			<p:column headerText="zugehöriger Tester">
-				<p:outputLabel value="#{testCase.testerID}" />
+				<p:outputLabel value="#{testCase.tester.name}" />
 			</p:column>
-		</p:dataTable> -->
+		</p:dataTable>
 		<p:commandButton value="Ändern" icon="pi pi-pencil" action="#{testRunlisteController.startEdit()}" style="margin-top: 10px;"/>
 	</h:form>
 </h:body>

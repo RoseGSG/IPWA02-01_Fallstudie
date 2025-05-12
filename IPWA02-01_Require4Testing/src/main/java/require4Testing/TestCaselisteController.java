@@ -17,9 +17,13 @@ public class TestCaselisteController implements Serializable {
 
     @Inject
     private RequirementDAO requirementDAO;
+    
+    @Inject
+    private TesterDAO testerDAO;
 
     private List<TestCase> testCases;
     private List<Requirement> alleRequirements;
+    private List<Tester> alleTester; 
 
     private TestCase neuerTestCase = new TestCase();
 
@@ -28,10 +32,11 @@ public class TestCaselisteController implements Serializable {
         testCases = testCaseDAO.findAll();
         alleRequirements = requirementDAO.findAll();
         neuerTestCase.setStatus("offen");
+        alleTester = testerDAO.findAll();
     }
 
     // Getter für View
-    public List<TestCase> getTestCase() {
+    public List<TestCase> getTestCases() {
         return testCases;
     }
 
@@ -43,9 +48,12 @@ public class TestCaselisteController implements Serializable {
         return neuerTestCase;
     }
 
-    // Neuer Helper für Converter: entityType
     public Class<Requirement> getRequirementType() {
         return Requirement.class;
+    }
+    
+    public List<Tester> getAlleTester() {
+        return alleTester;
     }
 
     // Methoden
@@ -66,22 +74,22 @@ public class TestCaselisteController implements Serializable {
     }
 
     public String startEdit1() {
-        return "testcaselisteTesterEdit";
+        return "testcaselisteTesterEdit?faces-redirect=true";
     }
 
     public String stopEdit1() {
-        return "testcaselisteTester";
+        return "testcaselisteTester?faces-redirect=true";
     }
 
     public String startEdit2() {
-        return "testcaselisteCreatorEdit";
+        return "testcaselisteCreatorEdit?faces-redirect=true";
     }
 
     public String stopEdit2() {
-        return "testcaselisteCreator";
+        return "testcaselisteCreator?faces-redirect=true";
     }
 
     public String logOut() {
-        return "login";
+        return "login?faces-redirect=true";
     }
 }
