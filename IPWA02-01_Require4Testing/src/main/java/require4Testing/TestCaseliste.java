@@ -15,7 +15,7 @@ public class TestCaseliste implements Serializable {
     @Inject
     private TestCaseDAO testCaseDAO;
 
-    public List<TestCase> getTestCase() {
+    public List<TestCase> getTestCases() {
         return testCaseDAO.findAll();
     }
 

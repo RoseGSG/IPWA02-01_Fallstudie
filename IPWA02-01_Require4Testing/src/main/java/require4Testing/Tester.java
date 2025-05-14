@@ -54,6 +54,11 @@ public class Tester {
 		return false;
 	}
     
+    @Override
+    public int hashCode() {
+        return (id != null) ? id.hashCode() : 0;
+    }
+    
     public List<TestCase> getTestCases() {return testCases;}
     public void setTestCases(List<TestCase> testCases) {this.testCases = testCases;}
 

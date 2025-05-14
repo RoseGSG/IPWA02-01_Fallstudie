@@ -47,6 +47,10 @@ public class TestCaselisteController implements Serializable {
     public TestCase getNeuerTestCase() {
         return neuerTestCase;
     }
+    
+    public Class<TestCase> getTestCaseType() {
+    	return TestCase.class;
+    }
 
     public Class<Requirement> getRequirementType() {
         return Requirement.class;
@@ -55,12 +59,19 @@ public class TestCaselisteController implements Serializable {
     public List<Tester> getAlleTester() {
         return alleTester;
     }
+    
+    public Class<Tester> getTesterType(){
+    	return Tester.class;
+    }
 
     // Methoden
     public void speichernEinzeln(TestCase testCase) {
         testCaseDAO.update(testCase);
     }
 
+    public void speichernEinzeln(Tester tester) {
+        testerDAO.update(tester);
+    }
     public void speichernNeuenTestCase() {
         testCaseDAO.save(neuerTestCase);
         testCases = testCaseDAO.findAll(); // Liste aktualisieren

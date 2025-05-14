@@ -45,19 +45,12 @@ public class TestRunlisteController implements Serializable {
 
     public void speichernEinzeln(TestRun t) {
         try {
-        	TestCase selectedCase = t.getTestCase();
-            if (selectedCase != null) {
-                selectedCase.setTestRun(t);
-                testCaseDAO.update(selectedCase);
-            }
-        	
             dao.update(t);
             testrunliste.refreshListe();
+            System.out.println("Gespeichert: " + t.getName() + " mit Testfall: " + (t.getTestCases() != null ? t.getTestCases().get(0).getDescription() : "keiner"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Speichere: " + t.getName());
-        System.out.println("Beschreibung: " + t.getDescription());
     }
 
     public void speichernNeuen() {
@@ -97,6 +90,10 @@ public class TestRunlisteController implements Serializable {
 
     public void setNeuerTestRun(TestRun neuerTestRun) {
         this.neuerTestRun = neuerTestRun;
+    }
+    
+    public Class<TestRun> getTestRunType() {
+    	return TestRun.class;
     }
 
     public List<TestCase> getAlleTestCases() {

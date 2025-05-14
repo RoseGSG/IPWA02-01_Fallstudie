@@ -18,11 +18,10 @@ public class TestRun {
     
     @OneToMany(mappedBy = "testRun", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TestCase> testCases = new ArrayList<>();
-    
-    @ManyToOne
-    @JoinColumn(name = "main_test_case_id")
-    private TestCase testCase;
 
+    @ManyToOne
+    private TestCase testCase;
+    
     public TestRun() {
     	}
     
@@ -52,8 +51,21 @@ public class TestRun {
 
     public List<TestCase> getTestCases() {return testCases;}
     public void setTestCases(List<TestCase> testCases) {this.testCases = testCases;}
-    
-    public TestCase getTestCase() {return testCase;}
-    public void setTestCase(TestCase testCase) {this.testCase = testCase;}
+
+    public TestCase getTestCase() { return testCase; }
+    public void setTestCase (TestCase testCase) {this.testCase = testCase; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TestRun testRun = (TestRun) o;
+        return id != null && id.equals(testRun.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return (id != null) ? id.hashCode() : 0;
+    }
 
 }

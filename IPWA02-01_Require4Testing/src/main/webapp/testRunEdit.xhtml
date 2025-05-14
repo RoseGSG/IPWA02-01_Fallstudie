@@ -71,7 +71,8 @@
 			            <h:outputText value="#{testRun.testCase.description}" />
 			        </f:facet>
 			        <f:facet name="input">
-			            <p:selectOneMenu value="#{testRun.testCase}" converter="_GenericFacesConverter">
+			            <p:selectOneMenu value="#{testRun.testCase}" converter="_GenericFacesConverter" style="width: 100%">
+			                <f:attribute name="entityType" value="#{testRunlisteController.testCaseType}" />
 			                <f:selectItems value="#{testRunlisteController.alleTestCases}" var="tc"
 			                               itemLabel="#{tc.description}" itemValue="#{tc}" />
 			            </p:selectOneMenu>
@@ -84,7 +85,7 @@
                                  title="Speichern"
                                  action="#{testRunlisteController.speichernEinzeln(testRun)}"
                                  process="@this"
-                                 update=":editForm:testrunTable :editForm:messages" />
+                                 update="@form" />
 
                 <p:spacer width="10" />
 
@@ -130,18 +131,12 @@
                          action="#{testRunlisteController.speichernNeuen}"
                          update=":editForm :editForm:messages"
                          process="@form" />
-        <p:spacer width="10" />
-
-        <p:commandButton value="Schließen"
-                         icon="pi pi-times"
-                         action="#{testRunlisteController.stopEdit()}"
-                         immediate="true"
-                         style="float: right;" />
-                         
+        <p:spacer width="10" /> 
     </h:form>
 	
+	
 	<h:form id="form2">
-		<p:dataTable var="testCase" value="#{testCaseliste.testCases}">
+		<p:dataTable var="testCase" value="#{testCaseliste.testCases}" editable="true" editMode="cell">
 			<f:facet name="header">
 				<h3>Testfall zuordnen</h3> 
 			</f:facet>
@@ -155,16 +150,28 @@
 			        </f:facet>
 			        <f:facet name="input">
 			            <p:selectOneMenu value="#{testCase.tester}" converter="_GenericFacesConverter">
-			                <f:selectItems value="#{testRunlisteController.alleTester}" var="t"
+			            	<f:attribute name="entityType" value="#{testCaselisteController.testerType}" />
+			                <f:selectItems value="#{testCaselisteController.alleTester}" var="t"
 			                               itemLabel="#{t.name}" itemValue="#{t}" />
 			            </p:selectOneMenu>
 			        </f:facet>
 			    </p:cellEditor>
 			</p:column>
+			
+			<p:column headerText="Aktionen">
+            <p:commandButton icon="pi pi-save" action="#{testCaselisteController.speichernEinzeln(testCase)}"
+                             update="@form" process="@this"/>
+        </p:column>
 		</p:dataTable>
 		<p:messages id="messages">
 			<p:autoUpdate />
 		</p:messages>
+		
+		<p:commandButton value="Schließen"
+                         icon="pi pi-times"
+                         action="#{testRunlisteController.stopEdit()}"
+                         immediate="true"
+                         style="float:; margin-top: 10px" />
 	</h:form>
 </h:body>
 </html>

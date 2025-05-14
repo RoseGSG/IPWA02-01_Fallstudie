@@ -40,6 +40,7 @@ public class _GenericDAO<T> {
     public void update(T entity) {
         em.getTransaction().begin();
         em.merge(entity);
+        em.flush();
         em.getTransaction().commit();
     }
 
