@@ -19,7 +19,7 @@ public class TestRun {
     @OneToMany(mappedBy = "testRun", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TestCase> testCases = new ArrayList<>();
 
-    @ManyToOne
+    @Transient
     private TestCase testCase;
     
     public TestRun() {

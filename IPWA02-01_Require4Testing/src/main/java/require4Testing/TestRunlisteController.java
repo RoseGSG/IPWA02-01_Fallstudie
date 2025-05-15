@@ -1,6 +1,7 @@
 package require4Testing;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.annotation.PostConstruct;
@@ -45,13 +46,42 @@ public class TestRunlisteController implements Serializable {
 
     public void speichernEinzeln(TestRun t) {
         try {
+            // Falls ein einzelner TestCase zugeordnet wurde
+            if (t.getTestCase() != null) {
+                TestCase ausgewaehlterTestCase = t.getTestCase();
+
+                // Optional: aus der Datenbank frisch laden (kann man auch weglassen)
+                ausgewaehlterTestCase = testCaseDAO.findById(ausgewaehlterTestCase.getId());
+
+                // TestRun in den TestCase setzen (bidirektionale Beziehung)
+                ausgewaehlterTestCase.setTestRun(t);
+
+                // Liste der TestCases im TestRun initialisieren (wenn null)
+                if (t.getTestCases() == null) {
+                    t.setTestCases(new ArrayList<>());
+                }
+
+                // Nur hinzufügen, wenn noch nicht vorhanden
+                if (!t.getTestCases().contains(ausgewaehlterTestCase)) {
+                    t.getTestCases().add(ausgewaehlterTestCase);
+                }
+            }
+
             dao.update(t);
             testrunliste.refreshListe();
-            System.out.println("Gespeichert: " + t.getName() + " mit Testfall: " + (t.getTestCases() != null ? t.getTestCases().get(0).getDescription() : "keiner"));
+
+            // Sicherer Zugriff auf TestCase-Beschreibung
+            String testfallInfo = (t.getTestCases() != null && !t.getTestCases().isEmpty())
+                ? t.getTestCases().get(0).getDescription()
+                : "keiner";
+
+            System.out.println("Gespeichert: " + t.getName() + " mit Testfall: " + testfallInfo);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     public void speichernNeuen() {
         System.out.println("speichernNeuen() wird aufgerufen!");
@@ -99,7 +129,11 @@ public class TestRunlisteController implements Serializable {
     public List<TestCase> getAlleTestCases() {
         return alleTestCases;
     }
-
+    
+    public Class<TestCase> getTestCaseType() {
+    	return TestCase.class;
+    }
+    
     public List<Tester> getAlleTester() {
         return alleTester;
     }
