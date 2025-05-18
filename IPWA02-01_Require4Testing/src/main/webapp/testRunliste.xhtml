@@ -14,7 +14,7 @@
 	<h:form id="form1">
 		<p:dataTable var="testRun" value="#{testRunliste.liste}">
 			<f:facet name="header">
-				<h2>aktuelle Testläufe und zugeürdnete Testfälle</h2>
+				<h2>aktuelle Testläufe und zugeordnete Testfälle</h2>
 			</f:facet>
 			<p:column headerText="Name">
 				<p:outputLabel value="#{testRun.name}" />
@@ -37,7 +37,7 @@
  <h:form id="form2">
 		<p:dataTable var="testCase" value="#{testCaseliste.testCases}">
 			<f:facet name="header">
-				<h3>Testfall zu Tester zuordnen</h3> 
+				<h2>Testfall zu Tester zuordnen</h2> 
 			</f:facet>
 			<p:column headerText="Beschreibung">
 				<p:outputLabel value="#{testCase.description}" />
