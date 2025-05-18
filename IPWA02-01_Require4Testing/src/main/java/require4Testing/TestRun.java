@@ -52,8 +52,10 @@ public class TestRun {
     public List<TestCase> getTestCases() {return testCases;}
     public void setTestCases(List<TestCase> testCases) {this.testCases = testCases;}
 
-    public TestCase getTestCase() { return testCase; }
-    public void setTestCase (TestCase testCase) {this.testCase = testCase; }
+    public TestCase getTestCase() {if (testCase != null)return testCase;
+        if (testCases != null && !testCases.isEmpty()) {return testCases.get(0);}
+        return null;}
+    public void setTestCase(TestCase testCase) {this.testCase = testCase;}
 
     @Override
     public boolean equals(Object o) {

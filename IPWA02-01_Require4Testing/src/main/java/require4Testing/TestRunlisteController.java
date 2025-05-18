@@ -46,41 +46,47 @@ public class TestRunlisteController implements Serializable {
 
     public void speichernEinzeln(TestRun t) {
         try {
-            // Falls ein einzelner TestCase zugeordnet wurde
+            // Wenn ein TestCase über die UI ausgewählt wurde
             if (t.getTestCase() != null) {
                 TestCase ausgewaehlterTestCase = t.getTestCase();
 
-                // Optional: aus der Datenbank frisch laden (kann man auch weglassen)
+                // Optional: TestCase frisch aus der DB laden (nicht zwingend, aber sicherer)
                 ausgewaehlterTestCase = testCaseDAO.findById(ausgewaehlterTestCase.getId());
 
-                // TestRun in den TestCase setzen (bidirektionale Beziehung)
-                ausgewaehlterTestCase.setTestRun(t);
+                if (ausgewaehlterTestCase != null) {
+                    // Den ausgewählten TestRun setzen → setzt den Fremdschlüssel in TestCase
+                    ausgewaehlterTestCase.setTestRun(t);
 
-                // Liste der TestCases im TestRun initialisieren (wenn null)
-                if (t.getTestCases() == null) {
-                    t.setTestCases(new ArrayList<>());
-                }
+                    // TestCase speichern (damit der Fremdschlüssel in DB geschrieben wird!)
+                    testCaseDAO.update(ausgewaehlterTestCase);
 
-                // Nur hinzufügen, wenn noch nicht vorhanden
-                if (!t.getTestCases().contains(ausgewaehlterTestCase)) {
-                    t.getTestCases().add(ausgewaehlterTestCase);
+                    // Bidirektionale Beziehung pflegen (für View-Logik oder spätere Abfragen)
+                    if (t.getTestCases() == null) {
+                        t.setTestCases(new ArrayList<>());
+                    }
+                    if (!t.getTestCases().contains(ausgewaehlterTestCase)) {
+                        t.getTestCases().add(ausgewaehlterTestCase);
+                    }
                 }
             }
 
+            // TestRun aktualisieren (Name, Beschreibung etc.)
             dao.update(t);
+
+            // Liste neu laden
             testrunliste.refreshListe();
 
-            // Sicherer Zugriff auf TestCase-Beschreibung
+            // Log-Ausgabe
             String testfallInfo = (t.getTestCases() != null && !t.getTestCases().isEmpty())
                 ? t.getTestCases().get(0).getDescription()
                 : "keiner";
-
             System.out.println("Gespeichert: " + t.getName() + " mit Testfall: " + testfallInfo);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
 
     public void speichernNeuen() {
