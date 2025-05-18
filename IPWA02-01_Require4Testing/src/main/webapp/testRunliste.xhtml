@@ -30,7 +30,7 @@
 				<p:datePicker id="endDate" value="#{testRun.endDate}" disabled="true" />
 			</p:column>
 			<p:column headerText="zugeordneter Testfall">
-            	<p:outputLabel value="#{testCase.testRun.name}" />
+            	<p:outputLabel value="#{testRun.testCase.description}" />
             </p:column>
 		</p:dataTable>
  	</h:form>
