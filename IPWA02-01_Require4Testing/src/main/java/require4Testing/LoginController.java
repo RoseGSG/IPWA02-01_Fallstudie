@@ -1,69 +1,66 @@
 package require4Testing;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.validator.ValidatorException;
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import java.io.Serializable;
 
 @Named
 @ViewScoped
 public class LoginController implements Serializable {
 
-	String name;
-	Benutzer benutzer;
+    private String login;
+    private String password;
 
-	List<Benutzer> benutzerListe;
+    @Inject
+    private UserRepository userRepository;
 
-	public LoginController() {
-		this.benutzerListe = new ArrayList<Benutzer>();
-		this.benutzerListe.add(new Benutzer("Admin", "123"));
-		this.benutzerListe.add(new Benutzer("User", "456"));
-		this.benutzer = new Benutzer();
-	}
-	
-	public void postValidateName(ComponentSystemEvent ev) throws AbortProcessingException {
-		UIInput temp = (UIInput)ev.getComponent();
-		this.name = (String)temp.getValue();
-	}
-	
-	public void validateLogin(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		for(Benutzer b:benutzerListe) {
-			Benutzer temp=new Benutzer(this.name, (String)value);
-			if(b.equals(temp))
-				return;
-		}
-		throw new ValidatorException(new FacesMessage("Login falsch!"));
-	}
+    // Event-Handler für das Username-Feld
+    public void postValidateName(jakarta.faces.event.ComponentSystemEvent ev) {
+        UIInput input = (UIInput) ev.getComponent();
+        this.login = (String) input.getValue();
+    }
 
-	public String login() {
-		if (this.name.equals("Admin"))
-			return "requirementEdit";
-		else
-			return "requirement";
-	}
+    // Validierung des Passworts beim Login-Versuch
+    public void validateLogin(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        this.password = (String) value;
 
-	public String getName() {
-		return name;
-	}
+        boolean validTester = userRepository.findTesterByLoginAndPassword(login, password) != null;
+        boolean validEngineer = userRepository.findEngineerByLoginAndPassword(login, password) != null;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+        if (!validTester && !validEngineer) {
+            throw new ValidatorException(new FacesMessage("Login fehlgeschlagen: Benutzer nicht gefunden."));
+        }
+    }
 
-	public Benutzer getBenutzer() {
-		return benutzer;
-	}
+    // Logik zur Weiterleitung je nach Benutzerrolle
+    public String login() {
+        Tester tester = userRepository.findTesterByLoginAndPassword(login, password);
+        if (tester != null) {
+            return "testcaselisteTester?faces-redirect=true";
+        }
 
-	public void setBenutzer(Benutzer benutzer) {
-		this.benutzer = benutzer;
-	}
+        RequirementEngineer engineer = userRepository.findEngineerByLoginAndPassword(login, password);
+        if (engineer != null) {
+            return "requirementliste?faces-redirect=true";
+        }
+
+        FacesContext.getCurrentInstance().addMessage(null,
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unbekannter Fehler beim Login", null));
+        return null;
+    }
+
+
+    // Getter & Setter
+    public String getLogin() {return login;}
+    public void setLogin(String login) {this.login = login;}
+
+    public String getPassword() {return password;}
+    public void setPassword(String password) {this.password = password;}
 }
