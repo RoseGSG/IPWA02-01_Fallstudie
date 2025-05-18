@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-    <h1>Testlauf / Testfälle</h1>
+    <h1>Hallo Testmanager "Name des Login"</h1>
 
     <h:form id="editForm">
         <p:messages id="messages" showDetail="true" autoUpdate="true" />
@@ -21,8 +21,7 @@
                      styleClass="editable-table">
 
             <f:facet name="header">
-                <h2>Testmanager</h2>
-                <h3>Offene Testläufe bearbeiten</h3>
+                <h2>Offene Testläufe bearbeiten</h2>
             </f:facet>
 
             <p:column headerText="Name">
@@ -97,7 +96,7 @@
             </p:column>
         </p:dataTable>
 
-        <h3>Neuen TestRun hinzufügen</h3>
+        <h2>Neuen TestRun hinzufügen</h2>
 
         <p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
             <p:outputLabel for="name" value="Name" />
@@ -138,7 +137,7 @@
 	<h:form id="form2">
 		<p:dataTable var="testCase" value="#{testCaseliste.testCases}" editable="true" editMode="cell">
 			<f:facet name="header">
-				<h3>Testfall zuordnen</h3> 
+				<h2>Testfall zuordnen</h2> 
 			</f:facet>
 			<p:column headerText="Beschreibung">
 				<p:outputLabel value="#{testCase.description}" />

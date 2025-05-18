@@ -10,12 +10,11 @@
 <h:body>
 <p:commandButton value="Logout" icon="pi pi-angle-double-left" action="#{testCaselisteController.logOut()}" 
 		styleClass="ui-button-raised ui-button-secondary"/>
-    <h1>Testfallersteller Übersicht</h1>
+    <h1>Hallo Testfallersteller "Name des Login"</h1>
     <h:form>
         <p:dataTable var="testCase" value="#{testCaseliste.testCases}" lazy="false">
             <f:facet name="header">
-                <h2>Testfallersteller</h2>
-                <h3>offene TestCases</h3>
+                <h2>offene TestCases</h2>
             </f:facet>
             <p:column headerText="Beschreibung">
 				<p:outputLabel value="#{testCase.description}" />

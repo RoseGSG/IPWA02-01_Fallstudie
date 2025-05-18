@@ -10,12 +10,11 @@
 <h:body>
 <p:commandButton value="Logout" icon="pi pi-angle-double-left" action="#{requirementController.logOut()}" 
 		styleClass="ui-button-raised ui-button-secondary"/>
-	<h1>Requirement / Anforderungen Testen</h1>
+	<h1>Hallo Requirements Engineer "Name des Logins"</h1>
 	<h:form>
 		<p:dataTable var="requirement" value="#{requirementliste.liste}" lazy="false">
 			<f:facet name="header">
-				<h2>Requirements Engineer</h2>
-				<h3>offene Anforderungen</h3>
+				<h2>offene Anforderungen</h2>
 			</f:facet>
 			<p:column headerText="Titel">
 				<p:outputLabel value="#{requirement.title}" />

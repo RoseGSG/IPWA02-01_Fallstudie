@@ -8,12 +8,11 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-	<h1>Tester Übersicht</h1>
+	<h1>Hallo Tester "Name des Login"</h1>
 	<h:form>
 		<p:dataTable var="testCase" value="#{testCaseliste.testCase}">
 			<f:facet name="header">
-				<h2>Tester</h2>
-				<h3>Übersicht der offenen TestCases</h3>
+				<h2>Übersicht der offenen TestCases</h2>
 			</f:facet>
 			<p:column headerText="Beschreibung">
 				<p:outputLabel value="#{testCase.description}" />

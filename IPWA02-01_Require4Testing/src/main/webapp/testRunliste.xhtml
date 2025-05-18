@@ -10,12 +10,11 @@
 <h:body>
 <p:commandButton value="Logout" icon="pi pi-angle-double-left" action="#{testRunlisteController.logOut()}" 
 		styleClass="ui-button-raised ui-button-secondary"/>
-	<h1>Testlauf / Testfälle</h1>
+	<h1>Hallo Testmanager "Name des Login"</h1>
 	<h:form id="form1">
 		<p:dataTable var="testRun" value="#{testRunliste.liste}">
 			<f:facet name="header">
-				<h2>Testmanager</h2>
-				<h3>offene Testläufe bearbeiten/ erstellen/ Testfall zuordnen</h3>
+				<h2>aktuelle Testläufe und zugeürdnete Testfälle</h2>
 			</f:facet>
 			<p:column headerText="Name">
 				<p:outputLabel value="#{testRun.name}" />
