@@ -8,8 +8,8 @@
     <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-    <h1>Hallo Testmanager "Name des Login"</h1>
-
+    <h1><h:outputText value="Willkommen, #{loginController.loggedTestmanager.name}" />
+		</h1>
     <h:form id="editForm">
         <p:messages id="messages" showDetail="true" autoUpdate="true" />
 

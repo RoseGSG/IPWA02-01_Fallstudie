@@ -8,7 +8,8 @@
     <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-    <h1>Hallo Requirements Engineer "Name des Logins"</h1>
+    <h1><h:outputText value="Willkommen, #{loginController.loggedEngineer.name}" />
+		</h1>
 
     <h:form id="editForm">
 

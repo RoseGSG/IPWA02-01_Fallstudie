@@ -100,7 +100,4 @@ public class TestCaselisteController implements Serializable {
         return "testcaselisteCreator?faces-redirect=true";
     }
 
-    public String logOut() {
-        return "login?faces-redirect=true";
-    }
 }

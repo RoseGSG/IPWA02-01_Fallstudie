@@ -8,9 +8,10 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-<p:commandButton value="Logout" icon="pi pi-angle-double-left" action="#{testRunlisteController.logOut()}" 
+<p:commandButton value="Logout" icon="pi pi-angle-double-left" action="#{loginController.logout()}" 
 		styleClass="ui-button-raised ui-button-secondary"/>
-	<h1>Hallo Testmanager "Name des Login"</h1>
+	<h1><h:outputText value="Willkommen, #{loginController.loggedTestmanager.name}" />
+		</h1>
 	<h:form id="form1">
 		<p:dataTable var="testRun" value="#{testRunliste.liste}">
 			<f:facet name="header">

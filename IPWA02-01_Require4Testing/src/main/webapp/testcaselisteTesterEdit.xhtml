@@ -8,7 +8,8 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-	<h1>Hallo Tester "Name des Login"</h1>
+	<h1><h:outputText value="Willkommen, #{loginController.loggedTester.name}" />
+		</h1>
 	<h:form>
 		<p:dataTable var="testCase" value="#{testCaseliste.testCases}">
 			<f:facet name="header">

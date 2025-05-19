@@ -144,7 +144,4 @@ public class TestRunlisteController implements Serializable {
         return alleTester;
     }
 
-    public String logOut() {
-        return "login?faces-redirect=true";
-    }
 }

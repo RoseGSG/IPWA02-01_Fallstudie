@@ -1,61 +1,62 @@
 package require4Testing;
 
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.validator.ValidatorException;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import java.io.Serializable;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class LoginController implements Serializable {
 
     private String login;
     private String password;
 
+    private Tester loggedTester;
+    private RequirementEngineer loggedEngineer;
+    private Testfallersteller loggedTestfallersteller;
+    private Testmanager loggedTestmanager;
+
     @Inject
     private UserRepository userRepository;
 
-    // Event-Handler für das Username-Feld
-    public void postValidateName(jakarta.faces.event.ComponentSystemEvent ev) {
-        UIInput input = (UIInput) ev.getComponent();
-        this.login = (String) input.getValue();
-    }
 
-    // Validierung des Passworts beim Login-Versuch
-    public void validateLogin(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        this.password = (String) value;
-
-        boolean validTester = userRepository.findTesterByLoginAndPassword(login, password) != null;
-        boolean validEngineer = userRepository.findEngineerByLoginAndPassword(login, password) != null;
-
-        if (!validTester && !validEngineer) {
-            throw new ValidatorException(new FacesMessage("Login fehlgeschlagen: Benutzer nicht gefunden."));
-        }
-    }
-
-    // Logik zur Weiterleitung je nach Benutzerrolle
     public String login() {
-        Tester tester = userRepository.findTesterByLoginAndPassword(login, password);
-        if (tester != null) {
+
+        loggedTester = userRepository.findTesterByLoginAndPassword(login, password);
+        if (loggedTester != null) {
             return "testcaselisteTester?faces-redirect=true";
         }
 
-        RequirementEngineer engineer = userRepository.findEngineerByLoginAndPassword(login, password);
-        if (engineer != null) {
+        loggedEngineer = userRepository.findEngineerByLoginAndPassword(login, password);
+        if (loggedEngineer != null) {
             return "requirementliste?faces-redirect=true";
         }
+        
+        loggedTestfallersteller = userRepository.findTestfallerstellerByLoginAndPassword(login, password);
+        if (loggedTestfallersteller != null) {
+            return "testcaselisteCreator?faces-redirect=true";
+        }
+        
+        loggedTestmanager = userRepository.findTestmanagerByLoginAndPassword(login, password);
+        if (loggedTestmanager != null) {
+            return "testRunliste?faces-redirect=true";
+        }
 
+        // Falls kein Login erfolgreich war
         FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unbekannter Fehler beim Login", null));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login fehlgeschlagen", "Benutzername oder Passwort ist ungültig."));
         return null;
     }
 
+    // Logout und Session invalidieren
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "login?faces-redirect=true";
+    }
 
     // Getter & Setter
     public String getLogin() {return login;}
@@ -63,4 +64,22 @@ public class LoginController implements Serializable {
 
     public String getPassword() {return password;}
     public void setPassword(String password) {this.password = password;}
+
+    public Tester getLoggedTester() {return loggedTester;}
+
+    public RequirementEngineer getLoggedEngineer() {return loggedEngineer;}
+    
+    public Testfallersteller getLoggedTestfallersteller() {return loggedTestfallersteller;}
+    
+    public Testmanager getLoggedTestmanager() {return loggedTestmanager;}
+
+    public boolean isLoggedIn() {return loggedTester != null || loggedEngineer != null;}
+
+    public boolean isTesterLoggedIn() {return loggedTester != null;}
+
+    public boolean isEngineerLoggedIn() {return loggedEngineer != null;}
+    
+    public boolean isTestfallerstellerLoggedIn() {return loggedTestfallersteller != null;}
+    
+    public boolean isTestmanagerLoggedIn() {return loggedTestmanager != null;}
 }

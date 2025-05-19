@@ -8,9 +8,10 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-<p:commandButton value="Logout" icon="pi pi-angle-double-left" action="#{requirementController.logOut()}" 
+<p:commandButton value="Logout" icon="pi pi-angle-double-left" action="#{loginController.logout()}" 
 		styleClass="ui-button-raised ui-button-secondary"/>
-	<h1>Hallo Requirements Engineer "Name des Logins"</h1>
+	<h1><h:outputText value="Willkommen, #{loginController.loggedEngineer.name}" />
+		</h1>
 	<h:form>
 		<p:dataTable var="requirement" value="#{requirementliste.liste}" lazy="false">
 			<f:facet name="header">
