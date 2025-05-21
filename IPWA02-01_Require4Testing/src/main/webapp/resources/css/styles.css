@@ -12,12 +12,4 @@ h1 {
     color: #222;
 }
 
- .status-offen {
-     color: orange;
- }
- .status-in-bearbeitung {
-     color: yellow;
- }
- .status-geschlossen {
-     color: green;
- }
+
