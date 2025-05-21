@@ -40,7 +40,7 @@ public class UserRepository {
     public Testfallersteller findTestfallerstellerByLoginAndPassword(String login, String password) {
         EntityManager em = emf.createEntityManager();
         try {
-            return em.createQuery("SELECT t FROM Tester t WHERE t.login = :login AND t.password = :password", Testfallersteller.class)
+            return em.createQuery("SELECT t FROM Testfallersteller t WHERE t.login = :login AND t.password = :password", Testfallersteller.class)
                     .setParameter("login", login)
                     .setParameter("password", password)
                     .getSingleResult();
@@ -54,7 +54,7 @@ public class UserRepository {
     public Testmanager findTestmanagerByLoginAndPassword(String login, String password) {
         EntityManager em = emf.createEntityManager();
         try {
-            return em.createQuery("SELECT t FROM Tester t WHERE t.login = :login AND t.password = :password", Testmanager.class)
+            return em.createQuery("SELECT t FROM Testmanager t WHERE t.login = :login AND t.password = :password", Testmanager.class)
                     .setParameter("login", login)
                     .setParameter("password", password)
                     .getSingleResult();

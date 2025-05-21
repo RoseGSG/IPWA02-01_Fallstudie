@@ -2,12 +2,12 @@
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     color: #333;
-    background-color: #a4dded;
+    background-color: #c5f9bf !important;
 }
 
 h1 {
     font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 4.5em;
+    font-size: 3.5em;
     font-weight: 700;
     color: #222;
 }

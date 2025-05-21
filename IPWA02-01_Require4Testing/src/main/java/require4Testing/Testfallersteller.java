@@ -67,4 +67,9 @@ public class Testfallersteller {
 		return false;
 	}
     
+    @Override
+    public int hashCode() {
+        return (id != null) ? id.hashCode() : 0;
+    }
+    
 }
